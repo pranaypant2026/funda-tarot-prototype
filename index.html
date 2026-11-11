@@ -40,8 +40,8 @@ html, body { margin: 0; height: 100%; overflow-x: hidden; background: var(--bg);
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta:wght@400;500;600;700&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script>window.DC_VERSION = "5";  /* bump on every deploy so phones fetch fresh screens */</script>
-<script src="dc-lite.js?v=5"></script>
+<script>window.DC_VERSION = "6";  /* bump on every deploy so phones fetch fresh screens */</script>
+<script src="dc-lite.js?v=6"></script>
 </head>
 <body>
 <div id="app"></div>
@@ -53,7 +53,9 @@ const SCREENS = [
 ];
 const h = React.createElement;
 const FIT = new Set(['Onboarding', 'Spread', 'Pick', 'Chat', 'Diary']);  // fixed-height screens fill the phone's real height
-const current = () => { const n = decodeURIComponent(location.hash.slice(1)); return SCREENS.some(s => s[0] === n) ? n : 'Onboarding'; };
+// ?mode=app: shareable app-style view (no step list or screen menu, opens on the Tarot home)
+const APP = new URLSearchParams(location.search).get('mode') === 'app';
+const current = () => { const n = decodeURIComponent(location.hash.slice(1)); return SCREENS.some(s => s[0] === n) ? n : (APP ? 'Main' : 'Onboarding'); };
 
 function App() {
   const [screen, setScreen] = React.useState(current());
@@ -72,6 +74,9 @@ function App() {
   const go = (n) => { if (n === screen) { setVisit(v => v + 1); setMenu(false); } else location.hash = n; };
   const list = SCREENS.map(([n, label]) => h('button', { key: n, type: 'button', 'aria-current': String(n === screen), onClick: () => go(n) }, label));
   const Comp = dcLite.registry[screen];
+  const phone = h('div', { className: 'phone' },
+      h('div', { className: 'screen' + (screen === 'Status' ? ' center' : '') + (FIT.has(screen) ? ' fit' : ''), ref: box }, h(Comp, { key: screen + ':' + visit })));
+  if (APP) return h('div', { className: 'layout' }, phone);
   return h('div', { className: 'layout' },
     h('nav', { className: 'side', 'aria-label': 'Screens' },
       h('h1', null, 'Funda Tarot'), h('p', null, 'Clickable prototype. Tap through the screens on the phone, or jump here.'), ...list),
