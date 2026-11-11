@@ -69,7 +69,8 @@
     if (tag === 'a' && typeof props.href === 'string' && props.href.endsWith('.dc.html')) {
       const target = props.href.replace(/^.*\//, '').replace('.dc.html', '');
       props.href = '#' + target;
-      props.onClick = (e) => { e.preventDefault(); window.dcNavigate(target); };
+      const own = props.onClick;
+      props.onClick = (e) => { e.preventDefault(); if (typeof own === 'function') own(e); window.dcNavigate(target); };
     }
     if ((tag === 'input' || tag === 'textarea') && 'value' in props && !props.onChange) props.readOnly = true;
     const children = kids(scope);

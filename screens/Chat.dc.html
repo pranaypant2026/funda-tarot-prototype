@@ -166,8 +166,11 @@ Haath ki rekhaye padhiye
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
 class Component extends DCLogic {
   script() {
+    var U = (typeof window !== 'undefined' && window.TAROT_USER) || {};
+    var nm = U.name ? ' ' + U.name + ' ji' : '';
+    var male = U.gender === 'm';
     return {
-      open: ['Namaste Priya ji, aapke teeno cards mere saamne hain. Shaadi ka sawaal hai, toh dhyaan se dekhti hoon.',
+      open: ['Namaste' + nm + ', aapke teeno cards mere saamne hain. Shaadi ka sawaal hai, toh dhyaan se dekhti hoon.',
         'Pehla card aapka hai, [[Three of Swords]], aur ye ulta aaya hai. Ye dil ki purani chot ka card hai… ulta hone ka matlab hai ki woh dard ab dheere-dheere kam ho raha hai.',
         'Doosra card, saamne wala: [[The Hermit]]. Jo insaan aapki zindagi mein aa raha hai, woh shaant aur soch-samajhkar chalne wala lagta hai. Jaldbaazi nahi karega, par dikhawe wala bhi nahi.',
         'Aur teesra, rishta kidhar: [[Two of Cups]] ✨ Ye do dilon ke sacche judaav ka card hai. Aapke cards ke hisaab se rishte ki baat 1 se 3 mahine mein aage badhne ke yog dikhte hain.',
@@ -176,7 +179,7 @@ class Component extends DCLogic {
       replies: {
         'Haan, ek rishta toota tha': { user: 'Haan, pichhle saal ek rishta toot gaya tha. Uske baad se mann nahi lagta', bubbles: [
           'Samajh sakti hoon… aisi baat mann se itni jaldi nahi jaati.',
-          'Aapka [[Three of Swords]] yahi dikha raha tha. Acchi baat ye hai ki woh ulta aaya hai, yaani aap us dard se bahar nikal rahi hain, bhale hi andar thodi baat abhi bhi dabi hai.',
+          'Aapka [[Three of Swords]] yahi dikha raha tha. Acchi baat ye hai ki woh ulta aaya hai, yaani aap us dard se bahar nikal rahe hain, bhale hi andar thodi baat abhi bhi dabi hai.',
           'Bas naye rishte ko purane wale ki nazar se mat tauliye. [[The Hermit]] wala insaan thoda samay lega, use woh samay dijiye.',
           'Aajkal akelapan zyada mehsoos hota hai, ya gharwalon ki baaton ka dabaav zyada lagta hai?'],
           chips: ['Akelapan lagta hai', 'Shaadi ki baat kab badhegi?', 'Koi upay bataiye'] },
@@ -184,7 +187,7 @@ class Component extends DCLogic {
           'Aapne khulkar kaha, ye accha kiya.',
           '[[The Hermit]] akelepan ka card bhi hai, par iska sandesh saza nahi, thehraav hai. Ye waqt aapko khud ko samajhne ke liye mila hai, taaki agla rishta soch-samajhkar chunein.',
           'Aur aage [[Two of Cups]] hai, yaani ye akelapan hamesha ka nahi.',
-          'Aapki koi saheli ya behen hai jisse aap dil ki baat kar paati hain?'],
+          'Aapka koi dost ya apna hai jisse aap dil ki baat kar paate hain?'],
           chips: ['Koi upay bataiye', 'Shaadi ki baat kab badhegi?', 'Thank you'] },
         'Shaadi ki baat kab badhegi?': { user: 'Shaadi ki baat kab tak aage badhegi?', bubbles: [
           'Dekhiye, cards taareekh nahi batate, disha batate hain 🙂',
@@ -194,35 +197,36 @@ class Component extends DCLogic {
           chips: ['Koi upay bataiye', 'Akelapan lagta hai', 'Thank you'] },
         'Koi upay bataiye': { user: 'Koi upay bataiye', bubbles: [
           'Bilkul. Aapke liye ye upay hain, mann se kijiyega:',
-          { upay: 'Kisi bade ya anubhavi vyakti se salah aur aashirwad lijiye, aur roz 15 minute kuch naya seekhiye.', why: 'Guru (Jupiter): elders’ blessings, marriage (especially for girls)' },
+          { upay: 'Kisi bade ya anubhavi vyakti se salah aur aashirwad lijiye, aur roz 15 minute kuch naya seekhiye.', why: 'Guru (Jupiter): wisdom, elders’ blessings, marriage' },
           { upay: 'Ghar ka ek kona saaf aur sundar rakhiye, aur kisi apne ke liye ek chhota khushi ka kaam kijiye.', why: 'Shukra (Venus): love, marriage · your Two of Cups is linked to Venus' },
           'Pooja-paath wale upay bhi bataun?'],
           chips: ['Pooja wale upay', 'Thank you'] },
         'Pooja wale upay': { user: 'Pooja wale upay bataiye', bubbles: [
           'Theek hai, ye upay poore mann se kijiye:',
-          { upay: "Roz 11 baar ye mantra boliye: 'Katyayani Mahamaye Mahayoginyadhishwari, Nandagopasutam Devi Patim Me Kuru Te Namah.'", why: 'Guru (Jupiter): marriage (especially for girls)', dev: 'कात्यायनि महामाये महायोगिन्यधीश्वरि। नन्दगोपसुतं देवि पतिं मे कुरु ते नमः॥' },
+          male ? { upay: "Roz 11 baar ye shlok boliye: 'Patnim Manoramam Dehi Manovrittanusarinim, Tarinim Durgasamsara Sagarasya Kulodbhavam.'", why: 'Shukra (Venus): marriage (especially for boys)', dev: 'पत्नीं मनोरमां देहि मनोवृत्तानुसारिणीम्। तारिणीं दुर्गसंसारसागरस्य कुलोद्भवाम्॥' }
+               : { upay: "Roz 11 baar ye mantra boliye: 'Katyayani Mahamaye Mahayoginyadhishwari, Nandagopasutam Devi Patim Me Kuru Te Namah.'", why: 'Guru (Jupiter): marriage (especially for girls)', dev: 'कात्यायनि महामाये महायोगिन्यधीश्वरि। नन्दगोपसुतं देवि पतिं मे कुरु ते नमः॥' },
           { upay: 'Guruvaar ko maathe par haldi ka tilak lagaiye aur kele ke ped mein jal chadhaiye.', why: 'Guru (Jupiter): wisdom, elders’ blessings, marriage' },
-          'Upay mann ko mazboot karte hain, baaki kadam aapko aur gharwalon ko uthaane hain. Ye Guruvaar se shuru karengi?'],
-          chips: ['Haan, shuru karungi', 'Thank you'] },
+          'Upay mann ko mazboot karte hain, baaki kadam aapko aur gharwalon ko uthaane hain. Ye Guruvaar se shuru karenge?'],
+          chips: ['Haan, shuru karte hain', 'Thank you'] },
         'Haan, aisa hua hai': { user: 'Haan, aisa hua hai', bubbles: [
-          'Aisa bahut logon ke saath hota hai, aap akeli nahi hain.',
+          'Aisa bahut logon ke saath hota hai, aap akele nahi hain.',
           'Dil ki sunna galat nahi hai, bas bada faisla lene se pehle kisi bharosemand se ek baar baat kar liya kijiye. [[The Hermit]] bhi yahi kehta hai: thoda rukkar sochiye.',
-          'Abhi ghar mein jo rishton ki baat chal rahi hai, usmein aap apni pasand khulkar bata paati hain?'],
+          'Abhi ghar mein jo rishton ki baat chal rahi hai, usmein aap apni pasand khulkar bata paate hain?'],
           chips: ['Koi upay bataiye', 'Thank you'] },
-        'Haan, shuru karungi': { user: 'Haan, shuru karungi', bubbles: [
+        'Haan, shuru karte hain': { user: 'Haan, shuru karte hain', bubbles: [
           'Bahut accha 🙂 Kal subah aapka naya card bhi aayega, use zaroor dekhiyega.',
           'Aur jab ghar mein rishte ki baat aage badhe, mujhe bataiyega. Main aapke cards phir se dekhungi.'],
           chips: [] },
-        'Thank you': { user: 'Thank you Aarohi', bubbles: ['Aapka bhi shukriya Priya ji. Khayal rakhiye, aur kal ka card dekhna mat bhooliye.'], chips: [] }
+        'Thank you': { user: 'Thank you Aarohi', bubbles: ['Aapka bhi shukriya' + nm + '. Khayal rakhiye, aur kal ka card dekhna mat bhooliye.'], chips: [] }
       },
       palm: function (two) {
-        return [two ? 'Dono haath bahut saaf aaye hain, thank you Priya ji 🙂' : 'Photo saaf aayi hai. Ek haath se bhi kaafi kuch dikh raha hai.',
+        return [two ? 'Dono haath bahut saaf aaye hain, thank you' + nm + ' 🙂' : 'Photo saaf aayi hai. Ek haath se bhi kaafi kuch dikh raha hai.',
           'Aapki [[Heart Line]] (hriday rekha) lambi hai aur index finger ki taraf jaati hai. Hast-rekha mein ise aise insaan ki nishaani maana jaata hai jo rishton ko dil se aur poori imaandari se nibhata hai.',
-          'Aapki [[Head Line]] (mastishk rekha) halki-si neeche ki taraf jhuki hai, yaani aap bhaavuk bhi hain aur kalpanasheel bhi. Faisle lete waqt aap dil ki awaaz zyada sunti hain.',
+          'Aapki [[Head Line]] (mastishk rekha) halki-si neeche ki taraf jhuki hai, yaani aap bhaavuk bhi hain aur kalpanasheel bhi. Faisle lete waqt aap dil ki awaaz zyada sunte hain.',
           'Ye aapke card se bhi mel khaata hai, [[Two of Cups]] bhi dil se judne ka card hai.',
           'Kya kabhi aisa hua hai ki dil ki sunkar liya gaya faisla baad mein bhaari pada ho?'];
       },
-      offTopic: ['Ye sawaal mere bas ka nahi hai Priya ji 🙂 Main sirf tarot cards aur haath ki rekhaon se aapki zindagi ke sawaalon par baat karti hoon.', 'Aapke cards abhi bhi mere saamne hain. Unke baare mein kuch aur poochna chahengi?']
+      offTopic: ['Ye sawaal mere bas ka nahi hai' + nm + ' 🙂 Main sirf tarot cards aur haath ki rekhaon se aapki zindagi ke sawaalon par baat karti hoon.', 'Aapke cards abhi bhi mere saamne hain. Unke baare mein kuch aur poochna chahenge?']
     };
   }
   componentDidMount() {

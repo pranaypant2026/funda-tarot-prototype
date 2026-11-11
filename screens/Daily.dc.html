@@ -20,7 +20,7 @@ a{color:#FFB07F}a:hover{color:#FFCBA8}
 <a href="Main.dc.html" aria-label="Back" style="width: 44px; height: 44px; color: #F1E2CC; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
 <div style="flex-grow: 1">
 <div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.1">आज का कार्ड</div>
-<div style="font-size: 13px; color: #B5AEBF">Wed, 11 Nov</div>
+<div style="font-size: 13px; color: #B5AEBF">{{today}}</div>
 </div>
 <div style="display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 17px; background: #30323B; color: #FFB07F; font-weight: 600; font-size: 15px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5a6.5 6.5 0 0 0 6.5-6.5c0-4.5-4-7-5-11.5-2.5 2.5-3.5 5-3 7.5-1.2-.8-2-2-2.2-3.3C6.6 9.4 5.5 11.8 5.5 15a6.5 6.5 0 0 0 6.5 6.5z"></path></svg>{{streak}} days</div>
 </div>
@@ -86,7 +86,7 @@ class Component extends DCLogic {
           self._t = setTimeout(function () { self.setState({ flipped: true }); }, 350);
         } };
     });
-    return { five: five, choosing: s.phase === 'choose', revealed: s.phase === 'reveal', flipped: s.flipped,
+    return { today: new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }), five: five, choosing: s.phase === 'choose', revealed: s.phase === 'reveal', flipped: s.flipped,
       streak: s.phase === 'reveal' ? 5 : 4 };
   }
 }

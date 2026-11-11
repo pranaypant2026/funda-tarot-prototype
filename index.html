@@ -40,8 +40,8 @@ html, body { margin: 0; height: 100%; overflow-x: hidden; background: var(--bg);
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Mukta:wght@400;500;600;700&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script>window.DC_VERSION = "6";  /* bump on every deploy so phones fetch fresh screens */</script>
-<script src="dc-lite.js?v=6"></script>
+<script>window.DC_VERSION = "7";  /* bump on every deploy so phones fetch fresh screens */</script>
+<script src="dc-lite.js?v=7"></script>
 </head>
 <body>
 <div id="app"></div>
@@ -55,7 +55,9 @@ const h = React.createElement;
 const FIT = new Set(['Onboarding', 'Spread', 'Pick', 'Chat', 'Diary']);  // fixed-height screens fill the phone's real height
 // ?mode=app: shareable app-style view (no step list or screen menu, opens on the Tarot home)
 const APP = new URLSearchParams(location.search).get('mode') === 'app';
-const current = () => { const n = decodeURIComponent(location.hash.slice(1)); return SCREENS.some(s => s[0] === n) ? n : (APP ? 'Main' : 'Onboarding'); };
+// the visitor's own details from onboarding (kept on this device only)
+try { window.TAROT_USER = JSON.parse(localStorage.getItem('funda_tarot_user') || 'null'); } catch (e) { window.TAROT_USER = null; }
+const current = () => { const n = decodeURIComponent(location.hash.slice(1)); return SCREENS.some(s => s[0] === n) ? n : (APP && window.TAROT_USER ? 'Main' : 'Onboarding'); };
 
 function App() {
   const [screen, setScreen] = React.useState(current());

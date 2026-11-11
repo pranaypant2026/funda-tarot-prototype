@@ -64,12 +64,13 @@ class Component extends DCLogic {
   renderVals() {
     var self = this;
     var s = Object.assign({ fb: { 70: 'yes' } }, this.state || {});
+    var fmt = function (k) { var d = new Date(); d.setDate(d.getDate() - k); return d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }); };
     var DAYS = [
-      { id: 17, date: 'Today · Wed, 11 Nov', name: 'The Star', line: 'Hope is returning; better days are coming.', ask: false },
-      { id: 70, date: 'Tue, 10 Nov', name: 'Seven of Pentacles', line: 'Be patient; your hard work is ripening.', ask: true },
-      { id: 9, date: 'Mon, 9 Nov', name: 'The Hermit', line: 'Pause and reflect; the answer is within.', ask: true },
-      { id: 41, date: 'Sun, 8 Nov', name: 'Six of Cups', line: 'Old memories, or an old friend, may return.', ask: true },
-      { id: 3, date: 'Sat, 7 Nov', name: 'The Empress', line: 'A time of comfort, love and growth at home.', ask: true }
+      { id: 17, date: 'Today · ' + fmt(0), name: 'The Star', line: 'Hope is returning; better days are coming.', ask: false },
+      { id: 70, date: fmt(1), name: 'Seven of Pentacles', line: 'Be patient; your hard work is ripening.', ask: true },
+      { id: 9, date: fmt(2), name: 'The Hermit', line: 'Pause and reflect; the answer is within.', ask: true },
+      { id: 41, date: fmt(3), name: 'Six of Cups', line: 'Old memories, or an old friend, may return.', ask: true },
+      { id: 3, date: fmt(4), name: 'The Empress', line: 'A time of comfort, love and growth at home.', ask: true }
     ];
     var on = { bg: 'rgba(125,92,232,0.25)', border: '#7D5CE8' }, off = { bg: 'transparent', border: '#4A4C58' };
     return {

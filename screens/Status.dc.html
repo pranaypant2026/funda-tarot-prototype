@@ -15,13 +15,13 @@ body{margin:0;background:#16171B}
 </helmet>
 <div style="width: 360px; height: 640px; box-sizing: border-box; background: #16171B; color: #F1E2CC; font-family: 'Mukta', sans-serif; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 34px 24px 22px">
 <div style="position: absolute; width: 420px; height: 420px; left: -30px; top: 90px; border-radius: 50%; background: radial-gradient(circle, rgba(125,92,232,0.38), rgba(255,125,58,0.10) 45%, rgba(22,23,27,0) 70%)"></div>
-<div style="position: relative; font-size: 15px; letter-spacing: 0.04em; color: #FFB07F; font-weight: 600">Wed, 11 Nov</div>
+<div style="position: relative; font-size: 15px; letter-spacing: 0.04em; color: #FFB07F; font-weight: 600">{{today}}</div>
 <div style="position: relative; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 28px; line-height: 1.15; text-align: center; margin-top: 2px">Aaj ka mera Tarot card</div>
 <div style="position: relative; margin-top: 22px; transform: rotate(-3deg)">
 <dc-import name="TarotCard" card-id="17" size="xl" face="{{true}}" hint-size="200px,328px"></dc-import>
 </div>
 <div style="position: relative; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; line-height: 1.3; text-align: center; margin-top: 22px">"Umeed rakhiye, accha samay aa raha hai."</div>
-<div style="position: relative; font-size: 15px; color: #B5AEBF; margin-top: 4px">— Vishu · Kark rashi</div>
+<div style="position: relative; font-size: 15px; color: #B5AEBF; margin-top: 4px">{{byline}}</div>
 <div style="flex-grow: 1"></div>
 <div style="position: relative; width: 100%; display: flex; align-items: center; gap: 10px; border-top: 1px solid #34363F; padding-top: 14px">
 <img src="assets/funda_logo.webp" alt="Funda" style="width: 40px; height: 40px; border-radius: 10px; object-fit: cover">
@@ -34,7 +34,11 @@ body{margin:0;background:#16171B}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":360,"height":640}}'>
 class Component extends DCLogic {
-  renderVals() { return {}; }
+  renderVals() {
+    var U = (typeof window !== 'undefined' && window.TAROT_USER) || {};
+    var by = [U.name, U.rashi ? U.rashi + ' rashi' : ''].filter(Boolean).join(' · ');
+    return { today: new Date().toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }), byline: by ? '— ' + by : '' };
+  }
 }
 </script>
 </body>
