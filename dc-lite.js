@@ -86,7 +86,7 @@
   }
 
   async function load(name) {
-    const text = await (await fetch('screens/' + name + '.dc.html')).text();
+    const text = await (await fetch('screens/' + name + '.dc.html?v=' + (window.DC_VERSION || '1'))).text();
     const doc = new DOMParser().parseFromString(text, 'text/html');
     const xdc = doc.querySelector('x-dc');
     const helmet = xdc.querySelector('helmet');
