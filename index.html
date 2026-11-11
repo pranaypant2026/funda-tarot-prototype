@@ -30,8 +30,8 @@ html, body { margin: 0; height: 100%; overflow-x: hidden; background: var(--bg);
   .phone { width: 100%; height: 100dvh; border-radius: 0; padding: 0; box-shadow: none; background: var(--panel); overflow: hidden; }
   .screen { width: 390px; height: calc(100dvh / var(--z)); border-radius: 0; zoom: var(--z); }
   .screen.fit > div:first-child { height: 100% !important; min-height: 600px; }
-  .menu-btn { display: flex; position: fixed; right: 12px; bottom: 96px; z-index: 50; width: 46px; height: 46px; border-radius: 50%;
-    border: 1px solid #7D5CE8; background: rgba(28,29,34,.92); color: var(--violet); align-items: center; justify-content: center; cursor: pointer; }
+  .menu-btn { display: flex; position: fixed; right: 0; top: 46%; z-index: 50; width: 30px; height: 52px; border-radius: 12px 0 0 12px;
+    border: 1px solid #7D5CE8; border-right: 0; background: rgba(28,29,34,.85); color: var(--violet); align-items: center; justify-content: center; cursor: pointer; padding: 0; }
   .sheet.open { display: block; position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.6); }
   .sheet .inner { position: absolute; left: 0; right: 0; bottom: 0; background: #1C1D22; border-radius: 20px 20px 0 0; padding: 16px 16px 28px; }
   .sheet button { display: block; width: 100%; text-align: left; background: transparent; border: 0; color: var(--text); font: 500 17px 'Mukta', sans-serif; padding: 11px 8px; border-bottom: 1px solid #2a2b31; }
