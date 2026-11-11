@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pick your cards</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Mukta:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#1C1D22}
+a{color:#FFB07F}a:hover{color:#FFCBA8}
+@keyframes tshufA{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-70px) rotate(-12deg)}50%{transform:translateX(0) rotate(0)}75%{transform:translateX(70px) rotate(12deg)}}
+@keyframes tshufB{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(70px) rotate(10deg)}50%{transform:translateX(0) rotate(0)}75%{transform:translateX(-70px) rotate(-10deg)}}
+@keyframes tdeal{from{transform:translateY(120px);opacity:0}to{transform:none;opacity:1}}
+@keyframes tpop{0%{transform:scale(.6) translateY(40px);opacity:0}70%{transform:scale(1.06)}100%{transform:none;opacity:1}}
+@keyframes tspark{0%{transform:scale(0) rotate(0);opacity:0}30%{opacity:1}100%{transform:scale(1.4) rotate(90deg);opacity:0}}
+@keyframes tglow{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes tsheet{from{transform:translateY(100%)}to{transform:none}}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #1C1D22; color: #F1E2CC; font-family: 'Mukta', sans-serif; display: flex; flex-direction: column; overflow: hidden; position: relative">
+
+<div style="height: 56px; padding: 0 16px 0 4px; display: flex; align-items: center; gap: 4px; flex-shrink: 0">
+<a href="Spread.dc.html" aria-label="Back" style="width: 44px; height: 44px; color: #F1E2CC; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 20px">Past · Present · Future</div>
+</div>
+
+<div style="position: relative; display: flex; justify-content: center; gap: 14px; padding: 14px 0 0; flex-shrink: 0">
+<sc-if value="{{revealedGlow}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; left: 20px; right: 20px; top: 20px; height: 170px; border-radius: 50%; background: radial-gradient(ellipse, rgba(125,92,232,0.45), rgba(255,125,58,0.12) 50%, rgba(28,29,34,0) 72%); animation: tglow 2.6s ease-in-out infinite"></div>
+</sc-if>
+<sc-for list="{{slots}}" as="sl" hint-placeholder-count="3">
+<div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px">
+<sc-if value="{{sl.filled}}" hint-placeholder-val="{{false}}">
+<div style="animation: tpop .5s ease-out">
+<dc-import name="TarotCard" card-id="{{sl.id}}" size="m" face="{{sl.face}}" hint-size="100px,164px"></dc-import>
+</div>
+</sc-if>
+<sc-if value="{{sl.empty}}" hint-placeholder-val="{{true}}">
+<div style="width: 100px; height: 164px; box-sizing: border-box; border-radius: 10px; border: 2px dashed {{sl.dash}}; display: flex; align-items: center; justify-content: center; font-family: 'Baloo 2', sans-serif; font-size: 30px; font-weight: 700; color: #4A4C58">{{sl.num}}</div>
+</sc-if>
+<div style="font-size: 16px; font-weight: 600; color: {{sl.labelColor}}">{{sl.label}}</div>
+</div>
+</sc-for>
+<sc-if value="{{sparkle}}" hint-placeholder-val="{{false}}">
+<sc-for list="{{sparks}}" as="sp" hint-placeholder-count="8">
+<svg viewBox="0 0 24 24" width="{{sp.size}}" height="{{sp.size}}" style="position: absolute; left: {{sp.x}}px; top: {{sp.y}}px; animation: tspark 1.1s ease-out {{sp.delay}}s both" fill="#FFCBA8" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"></path></svg>
+</sc-for>
+</sc-if>
+</div>
+
+<sc-if value="{{shuffling}}" hint-placeholder-val="{{false}}">
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px">
+<div style="position: relative; width: 100px; height: 164px">
+<div style="position: absolute; inset: 0; animation: tshufA 1.1s ease-in-out infinite"><dc-import name="TarotCard" card-id="1" size="m" face="{{false}}" hint-size="100px,164px"></dc-import></div>
+<div style="position: absolute; inset: 0; animation: tshufB 1.1s ease-in-out infinite .15s"><dc-import name="TarotCard" card-id="2" size="m" face="{{false}}" hint-size="100px,164px"></dc-import></div>
+<div style="position: absolute; inset: 0"><dc-import name="TarotCard" card-id="3" size="m" face="{{false}}" hint-size="100px,164px"></dc-import></div>
+</div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 20px">Shuffling the deck…</div>
+<div style="font-size: 15px; color: #B5AEBF">Think of your question</div>
+</div>
+</sc-if>
+
+<sc-if value="{{picking}}" hint-placeholder-val="{{true}}">
+<div style="flex-grow: 1; display: flex; flex-direction: column">
+<div style="padding: 34px 24px 0; text-align: center; animation: tin .4s ease-out">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.2">{{prompt}}</div>
+<div style="font-size: 16px; color: #B5AEBF; margin-top: 6px; line-height: 1.4">Swipe through the cards and tap the one you feel drawn to</div>
+</div>
+<div style="flex-grow: 1"></div>
+<div style="overflow-x: auto; overflow-y: hidden; padding: 0 0 34px; flex-shrink: 0; animation: tdeal .7s ease-out">
+<div style="display: flex; align-items: flex-end; padding: 30px 24px 10px 72px; width: max-content">
+<sc-for list="{{fan}}" as="f" hint-placeholder-count="8">
+<button type="button" aria-label="{{f.aria}}" onClick="{{f.pick}}" style="margin-left: -48px; padding: 0; border: 0; background: transparent; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; transform: {{f.tilt}}; color: #B5AEBF; font-family: 'Mukta', sans-serif">
+<span style="font-size: 13px; font-weight: 600; align-self: flex-start; padding-left: 4px">{{f.n}}</span>
+<dc-import name="TarotCard" card-id="1" size="m" face="{{false}}" hint-size="100px,164px"></dc-import>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ready}}" hint-placeholder-val="{{false}}">
+<div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 24px; gap: 16px; text-align: center; animation: tin .4s ease-out">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.2">Your 3 cards are ready</div>
+<div style="font-size: 16px; color: #B5AEBF">They will open one by one</div>
+<button type="button" onClick="{{reveal}}" style="height: 56px; border-radius: 16px; border: 0; background: #FF7D3A; color: #1C1D22; font-family: 'Mukta', sans-serif; font-size: 19px; font-weight: 700; cursor: pointer">Reveal my cards</button>
+</div>
+</sc-if>
+
+<sc-if value="{{flipping}}" hint-placeholder-val="{{false}}">
+<div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; font-size: 17px; color: #B5AEBF">Opening your cards…</div>
+</sc-if>
+
+<sc-if value="{{done}}" hint-placeholder-val="{{false}}">
+<div style="flex-grow: 1; overflow: auto; padding: 18px 16px 290px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{meanings}}" as="m" hint-placeholder-count="3">
+<div style="border-radius: 14px; background: #26272E; border: 1px solid #3B3D48; padding: 12px 14px; animation: tin .4s ease-out both; animation-delay: {{m.delay}}s">
+<div style="font-size: 12px; font-weight: 700; color: #FFB07F; letter-spacing: 0.06em">{{m.pos}}</div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; line-height: 1.25">{{m.name}}</div>
+<div style="font-size: 15px; color: #D9CFE0; line-height: 1.4">{{m.text}}</div>
+</div>
+</sc-for>
+</div>
+<div style="position: absolute; left: 0; right: 0; bottom: 0; background: #26272E; border-radius: 24px 24px 0 0; border-top: 1px solid #3B3D48; padding: 20px 20px 26px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -10px 30px rgba(0,0,0,0.4); animation: tsheet .5s ease-out .6s both">
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="width: 60px; height: 60px; border-radius: 50%; padding: 2.5px; box-sizing: border-box; background: linear-gradient(140deg, #7D5CE8, #FF7D3A); flex-shrink: 0">
+<img src="assets/readers/aarohi.jpg" alt="Aarohi" style="width: 100%; height: 100%; border-radius: 50%; border: 2.5px solid #26272E; box-sizing: border-box; object-fit: cover; display: block">
+</div>
+<div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 20px">Aarohi</div>
+<div style="font-size: 14px; color: #B5AEBF">Love · Relationships · Marriage</div>
+</div>
+</div>
+<div style="font-size: 15px; color: #D9CFE0; line-height: 1.4">Your 3 cards are with Aarohi. Ask her anything that is on your mind.</div>
+<a href="Chat.dc.html" style="height: 54px; border-radius: 16px; background: #FF7D3A; color: #1C1D22; font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Ask Aarohi</a>
+<a href="Readers.dc.html" style="height: 50px; border-radius: 16px; border: 1.5px solid #7D5CE8; color: #B9A6FF; font-size: 17px; font-weight: 600; display: flex; align-items: center; justify-content: center; text-decoration: none">Choose another reader</a>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  data() {
+    if (this._d) return this._d;
+    var CARDS = [["The Fool", "A fresh start is opening up, and it asks for a leap before every answer is known."], ["The Magician", "Everything needed is already in hand: skill, tools and energy."], ["The High Priestess", "Not everything is visible yet."], ["The Empress", "A phase of growth, comfort and care."], ["The Emperor", "Order, rules and firm planning bring results."], ["The Hierophant", "The traditional, proven path works best now."], ["The Lovers", "An important choice made from the heart and true values."], ["The Chariot", "Success through willpower and focus."], ["Strength", "Gentle, quiet strength wins over force."], ["The Hermit", "Time to step back, think alone and look for answers within."], ["Wheel of Fortune", "The wheel is turning: a turning point and change of luck, usually for the better."], ["Justice", "Fair results based on actions taken."], ["The Hanged Man", "Things are on hold."], ["Death", "A chapter is ending so a new one can begin."], ["Temperance", "Balance and moderation bring slow, steady results."], ["The Devil", "Feeling chained by a habit, fear, debt or unhealthy attachment, but the chains are looser than they seem."], ["The Tower", "Sudden change shakes something that was built on weak ground."], ["The Star", "After a hard time, hope returns."], ["The Moon", "Things are unclear and fears grow in the dark."], ["The Sun", "One of the best cards: success, happiness and clarity."], ["Judgement", "A wake-up call and a second chance."], ["The World", "A cycle completes successfully; goals are reached and life feels whole."], ["Ace of Wands", "A fresh burst of energy and inspiration: a new idea, project or opportunity is being offered to you right now."], ["Two of Wands", "You have built some security and now stand looking out at a bigger world, planning your next move."], ["Three of Wands", "Your earlier efforts are starting to pay off and wider opportunities are visible on the horizon."], ["Four of Wands", "A happy, settled phase: a celebration, family function, homecoming or milestone reached."], ["Five of Wands", "Many people pushing their own way at once: competition, arguments and friction, usually more noise than…"], ["Six of Wands", "Success and public recognition: you have won, and others can see it."], ["Seven of Wands", "You have earned a position and now others challenge it, so you must defend your ground."], ["Eight of Wands", "Things move fast after a slow period: news, messages, calls and decisions arrive quickly."], ["Nine of Wands", "You have been through a long struggle and are tired, but still standing; one last push is needed."], ["Ten of Wands", "You are carrying too much, with too many responsibilities taken on at once."], ["Page of Wands", "Exciting news or a new idea arrives, something that sparks curiosity and enthusiasm."], ["Knight of Wands", "Bold, fast action and adventure: moving forward with passion, sometimes too quickly."], ["Queen of Wands", "Confidence, warmth and determination: you can handle many things at once and people are drawn to your energy."], ["King of Wands", "Leadership and vision: you see the big picture and can inspire others to follow."], ["Ace of Cups", "A fresh flow of feeling is entering your life: a new relationship, a reconciliation, or a deep sense of…"], ["Two of Cups", "Two people meet as equals and feel the same way: a bond of mutual respect, attraction or close friendship."], ["Three of Cups", "A time of celebration with friends and family: a wedding, festival, reunion or good news shared together."], ["Four of Cups", "You feel bored, tired or dissatisfied with what you have, and are so lost in your thoughts that you may…"], ["Five of Cups", "Something has been lost or has gone wrong, and you are staring at the spilled cups; but two cups still…"], ["Six of Cups", "The past comes back sweetly: childhood memories, your hometown, an old friend getting in touch, or a…"], ["Seven of Cups", "Many options and dreams appear at once, but some of them are illusions; it is hard to tell which is real,…"], ["Eight of Cups", "You are walking away from something you put a lot into because it no longer satisfies your heart, to…"], ["Nine of Cups", "Known as the wish card: what you have been hoping for is likely to come true, bringing comfort,…"], ["Ten of Cups", "Lasting happiness at home: the family is united, there is peace, and love is shared by everyone, the…"], ["Page of Cups", "A sweet surprise or affectionate message arrives: an invitation, a kind word, or a new creative idea."], ["Knight of Cups", "An offer, invitation or proposal arrives, often romantic or creative, and you feel moved to follow your heart."], ["Queen of Cups", "Compassion and emotional wisdom guide the situation: understanding what others feel, trusting your…"], ["King of Cups", "Feelings are held in calm control; you, or someone helping you, stay steady under pressure and deal with…"], ["Ace of Swords", "A sudden breakthrough in thinking: confusion clears, the truth of a situation becomes obvious and you can…"], ["Two of Swords", "You are stuck between two choices and avoiding the decision; the blindfold in the card shows choosing not…"], ["Three of Swords", "A painful truth or heartbreak: words that hurt, a disappointment, or a separation that cuts deep."], ["Four of Swords", "A time to rest, pause and gather your strength after stress; stepping back now prevents exhaustion later."], ["Five of Swords", "A conflict where someone wins but at a heavy cost: arguments, ego clashes, humiliation, or a victory that…"], ["Six of Swords", "Moving away from a difficult time toward calmer waters: a transition, a shift, sometimes an actual journey…"], ["Seven of Swords", "Deception, sneakiness or someone trying to get away with something, or you acting alone with a clever plan."], ["Eight of Swords", "Feeling trapped, helpless or stuck, mostly because of fear and negative thinking; in the card the bindings…"], ["Nine of Swords", "Heavy worry and anxiety: lying awake at night overthinking, fearing the worst, with guilt or regret…"], ["Ten of Swords", "A painful ending or rock bottom: a situation is finished and cannot be revived."], ["Page of Swords", "Curiosity and a sharp, watchful mind: new ideas, learning, asking questions and gathering information."], ["Knight of Swords", "Fast, determined action: charging toward a goal with full force and strong opinions."], ["Queen of Swords", "Clear, independent thinking and honest communication: seeing through nonsense and setting firm boundaries."], ["King of Swords", "Clear authority based on reason, truth and fairness: decisions made with logic, ethics and a firm hand."], ["Ace of Pentacles", "A practical, real-world opportunity is arriving: a job offer, a chance to start earning, or the right…"], ["Two of Pentacles", "You are juggling several responsibilities at once, such as job, home and side work, and keeping them all…"], ["Three of Pentacles", "Good work comes from people combining their skills: one plans, one builds, one guides."], ["Four of Pentacles", "You are holding tightly to what you have, whether money, possessions or a position, out of a need for…"], ["Five of Pentacles", "A difficult stretch: money is tight, a loss has happened, or you feel left out in the cold."], ["Six of Pentacles", "Resources are flowing between people: you may be in a position to help someone, or to receive help, fair…"], ["Seven of Pentacles", "You have put in the effort and are now waiting for results that are still growing."], ["Eight of Pentacles", "Focused, repeated work to master a skill: practising the same task again and again until it is right."], ["Nine of Pentacles", "Enjoying the comfort and independence you have earned through discipline."], ["Ten of Pentacles", "Lasting stability in the family: a secure home, shared property, and wealth or values passed between…"], ["Page of Pentacles", "The start of learning something practical: a new course, a skill, or a careful first step toward a goal."], ["Knight of Pentacles", "Slow, steady, dependable progress through routine."], ["Queen of Pentacles", "Practical care and resourcefulness: looking after home, family and money with warmth and good sense."], ["King of Pentacles", "Material success achieved through discipline and experience: stability, leadership and a firm grip on…"]];
+    var perm = [];
+    for (var i = 0; i < 78; i++) perm.push(i);
+    for (var j = 77; j > 0; j--) { var x = Math.floor(Math.random() * (j + 1)); var t = perm[j]; perm[j] = perm[x]; perm[x] = t; }
+    this._d = { cards: CARDS, perm: perm };
+    return this._d;
+  }
+  componentDidMount() {
+    var self = this;
+    this._timers = [setTimeout(function () { self.setState({ phase: 'pick' }); }, 2200)];
+  }
+  componentWillUnmount() { (this._timers || []).forEach(function (t) { clearTimeout(t); }); }
+  renderVals() {
+    var self = this, d = this.data();
+    var s = Object.assign({ picked: [], phase: 'shuffle', flipped: 0 }, this.state || {});
+    var POS = ['Past', 'Present', 'Future'];
+    var POSFULL = ['PAST · what shaped this', 'PRESENT · where you are now', 'FUTURE · where it is heading'];
+    var n = s.picked.length;
+    var slots = POS.map(function (p, i) {
+      var filled = i < n;
+      return { label: p, num: i + 1, filled: filled, empty: !filled, id: filled ? d.perm[s.picked[i]] : 0,
+        face: i < s.flipped, dash: i === n && s.phase === 'pick' ? '#FF7D3A' : '#4A4C58',
+        labelColor: i === n && s.phase === 'pick' ? '#FFB07F' : '#B5AEBF' };
+    });
+    var fan = [];
+    for (var i = 0; i < 78; i++) {
+      if (s.picked.indexOf(i) >= 0) continue;
+      (function (pos) {
+        fan.push({ n: pos + 1, aria: 'Card ' + (pos + 1), tilt: 'rotate(' + (((pos % 5) - 2) * 1.6) + 'deg) translateY(' + ((pos % 3) * 3) + 'px)',
+          pick: function () {
+            if (s.picked.length >= 3) return;
+            var p = s.picked.concat([pos]);
+            self.setState({ picked: p, phase: p.length === 3 ? 'ready' : 'pick' });
+          } });
+      })(i);
+    }
+    var reveal = function () {
+      self.setState({ phase: 'flipping', flipped: 1 });
+      self._timers.push(setTimeout(function () { self.setState({ flipped: 2 }); }, 700));
+      self._timers.push(setTimeout(function () { self.setState({ flipped: 3 }); }, 1400));
+      self._timers.push(setTimeout(function () { self.setState({ phase: 'done' }); }, 2300));
+    };
+    var sparks = [[40, 20, 14, 0], [170, 6, 18, .1], [300, 30, 12, .2], [90, 150, 16, .15], [250, 140, 14, .25], [20, 110, 10, .3], [340, 100, 16, .05], [190, 175, 12, .35]]
+      .map(function (a) { return { x: a[0], y: a[1], size: a[2], delay: a[3] }; });
+    return {
+      slots: slots, fan: fan, reveal: reveal, sparks: sparks,
+      shuffling: s.phase === 'shuffle', picking: s.phase === 'pick', ready: s.phase === 'ready', flipping: s.phase === 'flipping', done: s.phase === 'done',
+      sparkle: s.phase === 'done', revealedGlow: s.phase === 'flipping' || s.phase === 'done',
+      prompt: 'Pick your ' + POS[Math.min(n, 2)] + ' card',
+      meanings: s.phase === 'done' ? s.picked.map(function (p, i) { var c = d.cards[d.perm[p]]; return { pos: POSFULL[i], name: c[0], text: c[1], delay: i * 0.15 }; }) : []
+    };
+  }
+}
+</script>
+</body>
+</html>

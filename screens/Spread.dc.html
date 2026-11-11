@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Choose a reading</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Mukta:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#1C1D22}
+a{color:#FFB07F}a:hover{color:#FFCBA8}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #1C1D22; color: #F1E2CC; font-family: 'Mukta', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="height: 56px; padding: 0 16px 0 4px; display: flex; align-items: center; gap: 4px; flex-shrink: 0">
+<a href="Main.dc.html" aria-label="Back" style="width: 44px; height: 44px; color: #F1E2CC; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px">New reading</div>
+</div>
+
+<div style="flex-grow: 1; overflow: auto; padding: 4px 16px 0; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 16px; font-weight: 600; padding: 0 4px">Which reading?</div>
+<sc-for list="{{spreads}}" as="sp" hint-placeholder-count="5">
+<button type="button" onClick="{{sp.pick}}" aria-pressed="{{sp.on}}" style="width: 100%; border-radius: 16px; border: 1.5px solid {{sp.border}}; background: {{sp.bg}}; color: #F1E2CC; padding: 12px 14px; display: flex; align-items: center; gap: 14px; text-align: left; font-family: 'Mukta', sans-serif; cursor: pointer">
+<div style="width: 44px; height: 44px; border-radius: 12px; background: #30323B; display: flex; align-items: center; justify-content: center; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px; color: #FFB07F; flex-shrink: 0">{{sp.n}}</div>
+<div style="flex-grow: 1; min-width: 0">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; line-height: 1.25">{{sp.title}}</div>
+<div style="font-size: 14px; color: #B5AEBF; line-height: 1.3">{{sp.sub}}</div>
+</div>
+<sc-if value="{{sp.locked}}" hint-placeholder-val="{{false}}">
+<div style="font-size: 12px; font-weight: 700; color: #1C1D22; background: #B9A6FF; border-radius: 6px; padding: 2px 7px; flex-shrink: 0">Premium</div>
+</sc-if>
+<span style="width: 22px; height: 22px; border-radius: 50%; border: 2px solid {{sp.border}}; display: flex; align-items: center; justify-content: center; flex-shrink: 0"><span style="width: 10px; height: 10px; border-radius: 50%; background: {{sp.dot}}"></span></span>
+</button>
+</sc-for>
+
+<div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px">
+<label for="q" style="font-size: 16px; font-weight: 600; padding: 0 4px">Your question <span style="font-weight: 400; color: #B5AEBF">(optional)</span></label>
+<div style="position: relative">
+<textarea id="q" value="{{q}}" onChange="{{onQ}}" placeholder="e.g. Kya mujhe nayi job milegi?" style="width: 100%; height: 84px; box-sizing: border-box; border-radius: 14px; border: 1.5px solid #3B3D48; background: #26272E; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 17px; padding: 12px 56px 12px 14px; resize: none; outline-color: #7D5CE8"></textarea>
+<button type="button" aria-label="Ask by voice" style="position: absolute; right: 8px; top: 8px; width: 44px; height: 44px; border-radius: 50%; border: 0; background: #30323B; color: #FFB07F; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{ideas}}" as="it" hint-placeholder-count="3">
+<button type="button" onClick="{{it.use}}" style="min-height: 38px; padding: 4px 12px; border-radius: 19px; border: 1px solid #4A4C58; background: transparent; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 15px; cursor: pointer">{{it.text}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="padding: 14px 20px 26px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #30323B">
+<a href="Pick.dc.html" style="width: 100%; height: 56px; border-radius: 16px; background: #FF7D3A; color: #1C1D22; font-size: 19px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Shuffle the cards</a>
+<div style="font-size: 13px; color: #B5AEBF; text-align: center">{{cta}}</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var s = Object.assign({ sel: 0, q: '' }, this.state || {});
+    var SP = [
+      { n: 3, title: 'Past · Present · Future', sub: 'What happened, where you are, where it is heading', ideas: ['Aane wala samay kaisa rahega?', 'Meri pareshani kab khatam hogi?', 'Kya main sahi raaste par hoon?'] },
+      { n: 3, title: 'Love & Relationship', sub: 'You · Them · Where it is going', ideas: ['Meri shaadi kab hogi?', 'Kya woh mujhe sach mein chahte hain?', 'Purana rishta laut aayega?'] },
+      { n: 3, title: 'Job & Money', sub: 'Now · Obstacle · Advice', ideas: ['Kya mujhe nayi job milegi?', 'Paison ki tangi kab khatam hogi?', 'Kya apna kaam shuru karun?'] },
+      { n: 1, title: 'Yes or No', sub: 'One question, one card, quick answer', ideas: ['Kya ye job leni chahiye?', 'Kya aaj baat karun?', 'Kya ye faisla sahi hai?'] },
+      { n: 12, title: 'How will 2027 be?', sub: '12 cards, one for each month', ideas: ['2027 mein paisa kaisa rahega?', '2027 mein shaadi ke yog?', '2027 mein career kaisa rahega?'] }
+    ];
+    var cur = SP[s.sel];
+    return {
+      spreads: SP.map(function (sp, i) {
+        var on = i === s.sel;
+        return { n: sp.n, title: sp.title, sub: sp.sub, locked: !!sp.locked, on: on,
+          bg: on ? 'rgba(125,92,232,0.18)' : '#26272E', border: on ? '#7D5CE8' : '#3B3D48', dot: on ? '#B9A6FF' : 'transparent',
+          pick: function () { self.setState({ sel: i }); } };
+      }),
+      q: s.q, onQ: function (e) { self.setState({ q: e.target.value }); },
+      ideas: cur.ideas.map(function (t) { return { text: t, use: function () { self.setState({ q: t }); } }; }),
+      cta: cur.n === 1 ? 'Next, you will pick 1 of 78 cards' : 'Next, you will pick ' + cur.n + ' of 78 cards'
+    };
+  }
+}
+</script>
+</body>
+</html>

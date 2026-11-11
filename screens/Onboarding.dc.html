@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tarot onboarding</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Mukta:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#1C1D22}
+a{color:#FFB07F}a:hover{color:#FFCBA8}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #1C1D22; color: #F1E2CC; font-family: 'Mukta', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="height: 56px; padding: 0 16px 0 4px; display: flex; align-items: center; gap: 8px; flex-shrink: 0">
+<button type="button" aria-label="Back" onClick="{{back}}" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F1E2CC; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<div style="flex-grow: 1; display: flex; gap: 6px">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="3">
+<div style="flex-grow: 1; height: 6px; border-radius: 3px; background: {{b.bg}}"></div>
+</sc-for>
+</div>
+<div style="font-size: 15px; color: #B5AEBF; min-width: 36px; text-align: right">{{stepLabel}}</div>
+</div>
+
+<div style="flex-grow: 1; padding: 20px 20px 0; display: flex; flex-direction: column; overflow: auto">
+
+<sc-if value="{{s0}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 22px">
+<div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.2">नमस्ते!</div>
+<div style="font-size: 17px; color: #B5AEBF; margin-top: 4px">Just 3 quick questions so your reading is about you.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="nm" style="font-size: 16px; font-weight: 600">Your name</label>
+<input id="nm" value="{{name}}" onChange="{{onName}}" style="height: 54px; border-radius: 14px; border: 1.5px solid #3B3D48; background: #26272E; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 19px; padding: 0 16px; box-sizing: border-box; outline-color: #7D5CE8">
+<div style="font-size: 13px; color: #B5AEBF">From your Funda profile. Change it if you like.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 16px; font-weight: 600">You are</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{genders}}" as="g" hint-placeholder-count="2">
+<button type="button" onClick="{{g.pick}}" style="height: 96px; border-radius: 18px; border: 2px solid {{g.border}}; background: {{g.bg}}; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 19px; font-weight: 600; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer">
+<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+{{g.label}}
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{s1}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px; padding-bottom: 12px">
+<div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.2">Birth details</div>
+<div style="font-size: 16px; color: #B5AEBF; margin-top: 2px">So we get your moon sign (rashi) right</div>
+</div>
+<div style="font-size: 16px; font-weight: 600">Date of birth</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{dateWheels}}" as="w" hint-placeholder-count="3">
+<div style="border-radius: 16px; background: #26272E; border: 1px solid #3B3D48; display: flex; flex-direction: column; align-items: center; padding: 2px 0">
+<button type="button" aria-label="{{w.upLabel}}" onClick="{{w.up}}" style="width: 100%; height: 40px; border: 0; background: transparent; color: #B9A6FF; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"></path></svg></button>
+<div style="font-size: 15px; color: #8E8899; height: 24px">{{w.prev}}</div>
+<div style="font-size: 21px; font-weight: 700; height: 38px; display: flex; align-items: center; border-top: 1px solid #4A4C58; border-bottom: 1px solid #4A4C58; width: 80%; justify-content: center">{{w.cur}}</div>
+<div style="font-size: 15px; color: #8E8899; height: 24px">{{w.next}}</div>
+<button type="button" aria-label="{{w.downLabel}}" onClick="{{w.down}}" style="width: 100%; height: 40px; border: 0; background: transparent; color: #B9A6FF; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+</div>
+</sc-for>
+</div>
+<div style="font-size: 16px; font-weight: 600">Time of birth</div>
+<button type="button" onClick="{{toggleTime}}" aria-pressed="{{noTime}}" style="display: flex; align-items: center; gap: 10px; height: 44px; border: 0; background: transparent; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 16px; padding: 0; cursor: pointer">
+<span style="width: 24px; height: 24px; border-radius: 6px; border: 2px solid #B9A6FF; display: flex; align-items: center; justify-content: center; background: {{tickBg}}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#1C1D22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></span>
+I don't know my exact time
+</button>
+<sc-if value="{{hasTime}}" hint-placeholder-val="{{true}}">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{timeWheels}}" as="w" hint-placeholder-count="3">
+<div style="border-radius: 16px; background: #26272E; border: 1px solid #3B3D48; display: flex; flex-direction: column; align-items: center; padding: 2px 0">
+<button type="button" aria-label="{{w.upLabel}}" onClick="{{w.up}}" style="width: 100%; height: 40px; border: 0; background: transparent; color: #B9A6FF; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 15l6-6 6 6"></path></svg></button>
+<div style="font-size: 15px; color: #8E8899; height: 24px">{{w.prev}}</div>
+<div style="font-size: 21px; font-weight: 700; height: 38px; display: flex; align-items: center; border-top: 1px solid #4A4C58; border-bottom: 1px solid #4A4C58; width: 80%; justify-content: center">{{w.cur}}</div>
+<div style="font-size: 15px; color: #8E8899; height: 24px">{{w.next}}</div>
+<button type="button" aria-label="{{w.downLabel}}" onClick="{{w.down}}" style="width: 100%; height: 40px; border: 0; background: transparent; color: #B9A6FF; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></button>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px">
+<label for="pl" style="font-size: 16px; font-weight: 600">Place of birth</label>
+<input id="pl" value="{{place}}" onChange="{{onPlace}}" placeholder="City or village" style="height: 52px; border-radius: 14px; border: 1.5px solid #3B3D48; background: #26272E; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 18px; padding: 0 16px; box-sizing: border-box; outline-color: #7D5CE8">
+</div>
+<div style="margin-top: 14px; border-radius: 16px; background: #26272E; border: 1px solid #7D5CE8; padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1">
+<div style="font-size: 14px; color: #B5AEBF">Your rashi (moon sign)</div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px">{{rashi}}</div>
+<div style="font-size: 13px; color: #B5AEBF">{{rashiNote}}</div>
+</div>
+<button type="button" onClick="{{toggleRashi}}" style="height: 40px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #7D5CE8; background: transparent; color: #B9A6FF; font-family: 'Mukta', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer">Change</button>
+</div>
+</sc-if>
+<sc-if value="{{showRashi}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 16px; font-weight: 600">Pick your rashi</div>
+<div style="font-size: 14px; color: #B5AEBF">Your name-letter rashi works too</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{rashis}}" as="r" hint-placeholder-count="12">
+<button type="button" onClick="{{r.pick}}" style="height: 44px; border-radius: 12px; border: 1.5px solid {{r.border}}; background: {{r.bg}}; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 16px; cursor: pointer">{{r.label}}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{s2}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 18px">
+<div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 26px; line-height: 1.2">What do you want to know about?</div>
+<div style="font-size: 16px; color: #B5AEBF; margin-top: 4px">Pick as many as you like. Your reader will keep these in mind.</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{focus}}" as="f" hint-placeholder-count="8">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="height: 48px; padding: 0 18px; border-radius: 24px; border: 1.5px solid {{f.border}}; background: {{f.bg}}; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 17px; font-weight: 500; cursor: pointer">{{f.label}}</button>
+</sc-for>
+</div>
+<div style="border-radius: 16px; background: #26272E; border: 1px solid #3B3D48; padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+<div style="flex-grow: 1">
+<div style="font-size: 16px; font-weight: 600">Remind me at 7 AM every day</div>
+<div style="font-size: 14px; color: #B5AEBF">"Aapka aaj ka card ready hai"</div>
+</div>
+<button type="button" role="switch" aria-checked="{{notify}}" aria-label="Daily reminder" onClick="{{toggleNotify}}" style="width: 52px; height: 30px; border-radius: 15px; border: 0; background: {{swBg}}; position: relative; cursor: pointer; padding: 0; flex-shrink: 0"><span style="position: absolute; top: 3px; left: {{swLeft}}; width: 24px; height: 24px; border-radius: 50%; background: #F1E2CC; transition: left .2s"></span></button>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+<div style="padding: 16px 20px 28px; flex-shrink: 0">
+<sc-if value="{{notLast}}" hint-placeholder-val="{{true}}">
+<button type="button" onClick="{{next}}" style="width: 100%; height: 56px; border-radius: 16px; border: 0; background: #FF7D3A; color: #1C1D22; font-family: 'Mukta', sans-serif; font-size: 19px; font-weight: 700; cursor: pointer">Next</button>
+</sc-if>
+<sc-if value="{{s2}}" hint-placeholder-val="{{false}}">
+<a href="Main.dc.html" style="width: 100%; height: 56px; border-radius: 16px; background: #FF7D3A; color: #1C1D22; font-size: 19px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Start</a>
+</sc-if>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var s = Object.assign({ step: 0, name: 'Vishu', gender: 'm', day: 20, month: 10, year: 1992, noTime: false, hour: 6, minute: 30, pm: true, place: 'Haldwani', rashiPick: -1, showRashi: false, focus: { 'Love': true, 'Money': true }, notify: true }, this.state || {});
+    var set = function (o) { self.setState(o); };
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var RASHI = ['Mesh', 'Vrishabh', 'Mithun', 'Kark', 'Simha', 'Kanya', 'Tula', 'Vrishchik', 'Dhanu', 'Makar', 'Kumbh', 'Meen'];
+    var isSample = s.day === 20 && s.month === 10 && s.year === 1992 && s.hour === 6 && s.minute === 30 && s.pm;
+    var sun = isSample ? 3 : -1;
+    var rIdx = s.rashiPick >= 0 ? s.rashiPick : sun;
+    var MIN = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+    var mi = MIN.indexOf(s.minute);
+
+    var dim = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var wrap = function (v, lo, hi) { return v < lo ? hi : (v > hi ? lo : v); };
+    var wheel = function (label, cur, prev, next, up, down) {
+      return { cur: cur, prev: prev, next: next, up: up, down: down, upLabel: label + ' previous', downLabel: label + ' next' };
+    };
+    var dmax = dim[s.month - 1];
+    var timeWheels = [
+      wheel('Hour', s.hour, wrap(s.hour - 1, 1, 12), wrap(s.hour + 1, 1, 12), function () { set({ hour: wrap(s.hour - 1, 1, 12) }); }, function () { set({ hour: wrap(s.hour + 1, 1, 12) }); }),
+      wheel('Minute', MIN[mi], MIN[(mi + 11) % 12], MIN[(mi + 1) % 12], function () { set({ minute: MIN[(mi + 11) % 12] }); }, function () { set({ minute: MIN[(mi + 1) % 12] }); }),
+      wheel('AM/PM', s.pm ? 'PM' : 'AM', s.pm ? 'AM' : '', s.pm ? '' : 'PM', function () { set({ pm: false }); }, function () { set({ pm: true }); })
+    ];
+    var dateWheels = [
+      wheel('Day', s.day, wrap(s.day - 1, 1, dmax), wrap(s.day + 1, 1, dmax), function () { set({ day: wrap(s.day - 1, 1, dmax) }); }, function () { set({ day: wrap(s.day + 1, 1, dmax) }); }),
+      wheel('Month', MONTHS[s.month - 1], MONTHS[wrap(s.month - 1, 1, 12) - 1], MONTHS[wrap(s.month + 1, 1, 12) - 1], function () { set({ month: wrap(s.month - 1, 1, 12), day: Math.min(s.day, dim[wrap(s.month - 1, 1, 12) - 1]) }); }, function () { set({ month: wrap(s.month + 1, 1, 12), day: Math.min(s.day, dim[wrap(s.month + 1, 1, 12) - 1]) }); }),
+      wheel('Year', s.year, s.year - 1, s.year + 1, function () { set({ year: s.year - 1 }); }, function () { set({ year: Math.min(2012, s.year + 1) }); })
+    ];
+    var sel = function (on) { return on ? { bg: 'rgba(125,92,232,0.22)', border: '#7D5CE8' } : { bg: '#26272E', border: '#3B3D48' }; };
+    var FOCUS = ['Love', 'Marriage', 'Job', 'Money', 'Business', 'Health', 'Family', 'Peace of mind'];
+    return {
+      s0: s.step === 0, s1: s.step === 1, s2: s.step === 2, notLast: s.step < 2,
+      stepLabel: (s.step + 1) + ' / 3',
+      bars: [0, 1, 2].map(function (i) { return { bg: i <= s.step ? '#FF7D3A' : '#3B3D48' }; }),
+      back: function () { set({ step: Math.max(0, s.step - 1) }); },
+      next: function () { set({ step: Math.min(2, s.step + 1) }); },
+      name: s.name, onName: function (e) { set({ name: e.target.value }); },
+      genders: [['m', 'Male'], ['f', 'Female']].map(function (g) { var c = sel(s.gender === g[0]); return { label: g[1], bg: c.bg, border: c.border, pick: function () { set({ gender: g[0] }); } }; }),
+      dateWheels: dateWheels,
+      rashi: rIdx >= 0 ? RASHI[rIdx] : 'To be worked out',
+      rashiNote: s.rashiPick >= 0 ? 'You picked this' : (rIdx >= 0 ? 'Worked out from your birth time & place' : 'From your birth time & place'),
+      showRashi: s.noTime || s.showRashi, timeWheels: timeWheels, place: s.place, onPlace: function (e) { set({ place: e.target.value }); }, toggleRashi: function () { set({ showRashi: !s.showRashi }); },
+      rashis: RASHI.map(function (r, i) { var c = sel(i === rIdx); return { label: r, bg: c.bg, border: c.border, pick: function () { set({ rashiPick: i, showRashi: false }); } }; }),
+      noTime: s.noTime, hasTime: !s.noTime, tickBg: s.noTime ? '#B9A6FF' : 'transparent',
+      toggleTime: function () { set({ noTime: !s.noTime }); },
+      focus: FOCUS.map(function (f) { var on = !!s.focus[f]; var c = sel(on); return { label: f, on: on, bg: c.bg, border: c.border, pick: function () { var n = Object.assign({}, s.focus); n[f] = !on; set({ focus: n }); } }; }),
+      notify: s.notify, toggleNotify: function () { set({ notify: !s.notify }); },
+      swBg: s.notify ? '#FF7D3A' : '#4A4C58', swLeft: s.notify ? '25px' : '3px'
+    };
+  }
+}
+</script>
+</body>
+</html>

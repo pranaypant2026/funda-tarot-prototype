@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tarot home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Mukta:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#1C1D22}
+a{color:#FFB07F}a:hover{color:#FFCBA8}
+@keyframes tfloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(-3deg)}}
+@keyframes tglow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+@keyframes ttwinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes tring{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+</style>
+</helmet>
+<div style="width: 390px; height: 1600px; box-sizing: border-box; background: #1C1D22; color: #F1E2CC; font-family: 'Mukta', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="height: 56px; padding: 0 12px 0 4px; display: flex; align-items: center; gap: 4px; flex-shrink: 0">
+<button type="button" aria-label="Back" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F1E2CC; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></button>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; flex-grow: 1">Tarot</div>
+<a href="Diary.dc.html" style="display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 17px; background: #30323B; color: #FFB07F; text-decoration: none; font-weight: 600; font-size: 15px"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5a6.5 6.5 0 0 0 6.5-6.5c0-4.5-4-7-5-11.5-2.5 2.5-3.5 5-3 7.5-1.2-.8-2-2-2.2-3.3C6.6 9.4 5.5 11.8 5.5 15a6.5 6.5 0 0 0 6.5 6.5z"></path></svg>4 days</a>
+<button type="button" aria-label="Profile" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F1E2CC; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg></button>
+</div>
+
+<div style="padding: 8px 20px 18px">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 28px; line-height: 1.2">नमस्ते, Vishu</div>
+<div style="font-size: 16px; color: #B5AEBF; margin-top: 2px">Wed, 11 Nov · Kark rashi</div>
+</div>
+
+<div style="margin: 0 16px; border-radius: 20px; background: #26272E; border: 1px solid #3B3D48; padding: 20px 18px; display: flex; gap: 18px; align-items: center; position: relative; overflow: hidden">
+<div style="position: absolute; width: 220px; height: 220px; left: -60px; top: -40px; border-radius: 50%; background: radial-gradient(circle, rgba(125,92,232,0.45), rgba(255,125,58,0.12) 45%, rgba(125,92,232,0) 70%); animation: tglow 3.2s ease-in-out infinite"></div>
+<sc-for list="{{stars}}" as="st" hint-placeholder-count="5">
+<svg viewBox="0 0 24 24" width="{{st.size}}" height="{{st.size}}" style="position: absolute; left: {{st.x}}px; top: {{st.y}}px; animation: ttwinkle {{st.dur}}s ease-in-out infinite {{st.delay}}s" fill="#FFCBA8" aria-hidden="true"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"></path></svg>
+</sc-for>
+<div style="position: relative; flex-shrink: 0; animation: tfloat 4s ease-in-out infinite">
+<dc-import name="TarotCard" card-id="17" size="m" face="{{false}}" hint-size="100px,164px"></dc-import>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 8px; min-width: 0">
+<div style="font-size: 14px; font-weight: 600; color: #FFB07F; letter-spacing: 0.02em">आज का कार्ड</div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; line-height: 1.2">What does today hold for you?</div>
+<div style="font-size: 15px; color: #B5AEBF; line-height: 1.4">A new card every morning. Pick yours and see how your day looks.</div>
+<a href="Daily.dc.html" style="margin-top: 6px; height: 48px; border-radius: 14px; background: #FF7D3A; color: #1C1D22; font-weight: 700; font-size: 18px; text-decoration: none; display: flex; align-items: center; justify-content: center">Pick your card</a>
+</div>
+</div>
+
+<div style="padding: 28px 20px 12px; display: flex; align-items: baseline; justify-content: space-between">
+<div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px">Ask a reader</div>
+<div style="font-size: 14px; color: #B5AEBF">Online 24×7 · in your language</div>
+</div>
+<a href="Readers.dc.html" style="font-size: 15px; font-weight: 600; text-decoration: none; padding: 10px 0">See all</a>
+</div>
+<div style="display: flex; gap: 10px; padding: 0 16px">
+<sc-for list="{{readers}}" as="r" hint-placeholder-count="5">
+<a href="Reader.dc.html" style="width: 66px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; color: #F1E2CC">
+<div style="position: relative; width: 64px; height: 64px">
+<div style="position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(#7D5CE8, #FF7D3A, #B45CC8, #7D5CE8); animation: tring 6s linear infinite"></div>
+<img src="{{r.photo}}" alt="{{r.name}}" style="position: absolute; inset: 2.5px; width: 59px; height: 59px; border-radius: 50%; border: 2.5px solid #1C1D22; box-sizing: border-box; object-fit: cover">
+<span style="position: absolute; right: 1px; bottom: 2px; width: 13px; height: 13px; border-radius: 50%; background: #5BD08A; border: 2.5px solid #1C1D22"></span>
+</div>
+<div style="font-size: 15px; font-weight: 600; line-height: 1.1; text-align: center">{{r.name}}</div>
+<div style="font-size: 12px; color: #B5AEBF; line-height: 1.2; text-align: center">{{r.focus}}</div>
+</a>
+</sc-for>
+</div>
+
+<div style="padding: 28px 20px 12px">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px">Choose a reading</div>
+<div style="font-size: 14px; color: #B5AEBF">What do you want to know? You pick the cards.</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 0 16px">
+<sc-for list="{{spreads}}" as="sp" hint-placeholder-count="4">
+<a href="Spread.dc.html" style="border-radius: 16px; background: #26272E; border: 1px solid #3B3D48; padding: 14px; text-decoration: none; color: #F1E2CC; display: flex; flex-direction: column; gap: 10px; min-height: 118px; box-sizing: border-box">
+<div style="display: flex; height: 30px; align-items: flex-end">
+<sc-if value="{{sp.three}}" hint-placeholder-val="{{true}}">
+<div style="width: 18px; height: 28px; border-radius: 3px; background: #17181D; border: 1px solid #E8A35F; transform: rotate(-10deg)"></div>
+<div style="width: 18px; height: 28px; border-radius: 3px; background: #17181D; border: 1px solid #E8A35F; margin-left: -6px; transform: translateY(-3px)"></div>
+<div style="width: 18px; height: 28px; border-radius: 3px; background: #17181D; border: 1px solid #E8A35F; margin-left: -6px; transform: rotate(10deg)"></div>
+</sc-if>
+<sc-if value="{{sp.one}}" hint-placeholder-val="{{false}}">
+<div style="width: 18px; height: 28px; border-radius: 3px; background: #17181D; border: 1px solid #E8A35F"></div>
+</sc-if>
+</div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; line-height: 1.2">{{sp.title}}</div>
+<div style="font-size: 13px; color: #B5AEBF; line-height: 1.3">{{sp.sub}}</div>
+</a>
+</sc-for>
+</div>
+<a href="Spread.dc.html" style="margin: 12px 16px 0; border-radius: 16px; background: #26272E; border: 1px solid #7D5CE8; padding: 16px; text-decoration: none; color: #F1E2CC; display: flex; align-items: center; gap: 14px">
+<div style="display: flex; flex-wrap: wrap; width: 66px; gap: 3px; flex-shrink: 0">
+<sc-for list="{{twelve}}" as="t" hint-placeholder-count="12">
+<div style="width: 13px; height: 19px; border-radius: 2px; background: #17181D; border: 1px solid #E8A35F; box-sizing: border-box"></div>
+</sc-for>
+</div>
+<div style="flex-grow: 1">
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px">How will 2027 be?</div>
+<div style="font-size: 12px; font-weight: 700; color: #1C1D22; background: #FFB07F; border-radius: 6px; padding: 1px 7px">NEW</div>
+</div>
+<div style="font-size: 14px; color: #B5AEBF; line-height: 1.35">12 cards, one for every month of the year.</div>
+</div>
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#B9A6FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+</a>
+
+<div style="padding: 28px 20px 12px; display: flex; align-items: baseline; justify-content: space-between">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px">Today's Rashifal · Kark</div>
+</div>
+<div style="margin: 0 16px; border-radius: 16px; background: #26272E; border: 1px solid #3B3D48; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-size: 16px; line-height: 1.5">You'll be appreciated at work. Think twice before any money deal. A good evening with family.</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<div style="font-size: 14px; background: #30323B; border-radius: 10px; padding: 5px 10px; display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 50%; background: #7FB6FF; display: inline-block"></span>Lucky colour: Sky blue</div>
+<div style="font-size: 14px; background: #30323B; border-radius: 10px; padding: 5px 10px">Lucky number: 6</div>
+</div>
+<a href="Daily.dc.html" style="font-size: 15px; font-weight: 600; text-decoration: none">Read full rashifal</a>
+</div>
+
+<div style="padding: 28px 20px 12px; display: flex; align-items: baseline; justify-content: space-between">
+<div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px">My tarot diary</div>
+<div style="font-size: 14px; color: #B5AEBF">Your daily cards, saved here</div>
+</div>
+<a href="Diary.dc.html" style="font-size: 15px; font-weight: 600; text-decoration: none; padding: 10px 0">Open</a>
+</div>
+<div style="display: flex; gap: 12px; padding: 0 16px">
+<sc-for list="{{diary}}" as="d" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+<dc-import name="TarotCard" card-id="{{d.id}}" size="s" face="{{d.face}}" hint-size="56px,92px"></dc-import>
+<div style="font-size: 13px; color: #B5AEBF">{{d.day}}</div>
+</div>
+</sc-for>
+</div>
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      readers: [
+        { name: 'Aarohi', focus: 'Love, Marriage', photo: 'assets/readers/aarohi.jpg' },
+        { name: 'Kabir', focus: 'Job, Career', photo: 'assets/readers/kabir.jpg' },
+        { name: 'Raghav', focus: 'Money, Business', photo: 'assets/readers/raghav.jpg' },
+        { name: 'Sharda Maa', focus: 'Peace, Upay', photo: 'assets/readers/sharda.jpg' },
+        { name: 'Lakshmi', focus: 'Telugu, Kannada', photo: 'assets/readers/lakshmi.jpg' }
+      ],
+      stars: [
+        { x: 18, y: 14, size: 10, dur: 2.4, delay: 0 }, { x: 128, y: 26, size: 8, dur: 3.1, delay: 0.8 },
+        { x: 96, y: 168, size: 12, dur: 2.8, delay: 1.4 }, { x: 330, y: 18, size: 9, dur: 3.4, delay: 0.4 },
+        { x: 8, y: 150, size: 7, dur: 2.2, delay: 1.9 }
+      ],
+      spreads: [
+        { title: 'Past · Present · Future', sub: '3 cards · most popular', three: true, one: false },
+        { title: 'Love & Relationship', sub: '3 cards · You, Them, Where it is going', three: true, one: false },
+        { title: 'Job & Money', sub: '3 cards · Now, Obstacle, Advice', three: true, one: false },
+        { title: 'Yes or No', sub: '1 card · quick answer', three: false, one: true }
+      ],
+      twelve: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      diary: [
+        { id: 3, day: 'Sat', face: true },
+        { id: 41, day: 'Sun', face: true },
+        { id: 9, day: 'Mon', face: true },
+        { id: 70, day: 'Tue', face: true },
+        { id: 17, day: 'Today', face: false }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

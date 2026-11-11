@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chat with Aarohi</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Mukta:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#1C1D22}
+a{color:#FFB07F}a:hover{color:#FFCBA8}
+@keyframes tdot{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+@keyframes tin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes tpulse{0%,100%{box-shadow:0 0 0 0 rgba(255,125,58,.45)}50%{box-shadow:0 0 0 6px rgba(255,125,58,0)}}
+@keyframes tscan{0%{top:6%}100%{top:90%}}
+@keyframes tsheet{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #1C1D22; color: #F1E2CC; font-family: 'Mukta', sans-serif; display: flex; flex-direction: column; overflow: hidden; position: relative">
+
+<div style="height: 64px; padding: 0 12px 0 4px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; border-bottom: 1px solid #30323B">
+<a href="Pick.dc.html" aria-label="Back" style="width: 44px; height: 44px; color: #F1E2CC; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+<a href="Reader.dc.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #F1E2CC; flex-grow: 1; min-width: 0">
+<div style="position: relative; width: 44px; height: 44px; flex-shrink: 0">
+<img src="assets/readers/aarohi.jpg" alt="Aarohi" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid #7D5CE8; box-sizing: border-box">
+<span style="position: absolute; right: 0; bottom: 1px; width: 11px; height: 11px; border-radius: 50%; background: #5BD08A; border: 2px solid #1C1D22"></span>
+</div>
+<div style="min-width: 0">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 18px; line-height: 1.1">Aarohi</div>
+<div style="font-size: 13px; color: {{statusColor}}">{{status}}</div>
+</div>
+</a>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px; padding: 8px 14px; background: #24252B; border-bottom: 1px solid #30323B; flex-shrink: 0">
+<div style="display: flex; gap: 6px">
+<sc-for list="{{mini}}" as="m" hint-placeholder-count="3">
+<div style="width: 31px; height: 51px; overflow: hidden; border-radius: 4px">
+<div style="transform: scale(0.555); transform-origin: top left">
+<dc-import name="TarotCard" card-id="{{m.id}}" size="s" face="{{true}}" reversed="{{m.rev}}" hint-size="56px,92px"></dc-import>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="flex-grow: 1; min-width: 0">
+<div style="font-size: 14px; font-weight: 600">Your cards · Love &amp; Relationship</div>
+<div style="font-size: 12px; color: #B5AEBF">Three of Swords (reversed) · The Hermit · Two of Cups</div>
+</div>
+</div>
+
+<div ref="{{setList}}" style="flex-grow: 1; overflow-y: auto; padding: 14px 12px 10px; display: flex; flex-direction: column; gap: 8px">
+<div style="align-self: center; font-size: 12px; color: #8E8899; background: #26272E; border-radius: 8px; padding: 3px 10px">Today</div>
+<sc-for list="{{msgs}}" as="m" hint-placeholder-count="4">
+<sc-if value="{{m.mine}}" hint-placeholder-val="{{false}}">
+<div style="align-self: flex-end; max-width: 78%; background: #4A3A8C; color: #F4EEFF; border-radius: 16px 16px 4px 16px; padding: 9px 13px; font-size: 16px; line-height: 1.45; animation: tin .3s ease-out">{{m.text}}</div>
+</sc-if>
+<sc-if value="{{m.photos}}" hint-placeholder-val="{{false}}">
+<div style="align-self: flex-end; display: flex; gap: 6px; background: #4A3A8C; border-radius: 16px 16px 4px 16px; padding: 6px; animation: tin .3s ease-out">
+<sc-for list="{{m.pics}}" as="p" hint-placeholder-count="2">
+<div style="position: relative">
+<img src="assets/palm_left.jpg" alt="{{p.label}}" style="width: 92px; height: 122px; object-fit: cover; border-radius: 11px; display: block; transform: {{p.flip}}">
+<span style="position: absolute; left: 6px; bottom: 6px; font-size: 11px; background: rgba(0,0,0,0.55); color: #fff; border-radius: 6px; padding: 1px 6px">{{p.label}}</span>
+</div>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{m.theirs}}" hint-placeholder-val="{{true}}">
+<div style="align-self: flex-start; max-width: 84%; display: flex; align-items: flex-end; gap: 6px; animation: tin .35s ease-out">
+<div style="background: #26272E; border: 1px solid #34363F; border-radius: 16px 16px 16px 4px; padding: 9px 13px; font-size: 16px; line-height: 1.5; white-space: pre-line"><sc-for list="{{m.segs}}" as="g" hint-placeholder-count="1"><sc-if value="{{g.card}}" hint-placeholder-val="{{false}}"><span style="color: #FFB07F; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(255,176,127,0.5); text-underline-offset: 3px">{{g.t}}</span></sc-if><sc-if value="{{g.plain}}" hint-placeholder-val="{{true}}"><span>{{g.t}}</span></sc-if></sc-for></div>
+<button type="button" aria-label="Listen" onClick="{{m.listen}}" style="width: 32px; height: 32px; border-radius: 50%; border: 0; background: {{m.listenBg}}; color: #B9A6FF; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; padding: 0"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"></path></svg></button>
+</div>
+</sc-if>
+<sc-if value="{{m.upay}}" hint-placeholder-val="{{false}}">
+<div style="align-self: flex-start; max-width: 84%; border-radius: 16px; background: linear-gradient(160deg, #2E2440, #26272E); border: 1px solid #6E55D6; padding: 11px 13px; display: flex; gap: 10px; animation: tin .35s ease-out">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#FFB07F" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 2px"><path d="M12 3c1.5 2.5 3 3.8 3 6a3 3 0 0 1-6 0c0-2.2 1.5-3.5 3-6zM4 15h16l-2 5H6z"></path></svg>
+<div>
+<div style="font-size: 12px; font-weight: 700; color: #FFB07F; letter-spacing: 0.06em">UPAY</div>
+<div style="font-size: 16px; line-height: 1.45">{{m.text}}</div>
+<sc-if value="{{m.hasDev}}" hint-placeholder-val="{{false}}"><div style="font-size: 14px; color: #E9DDF5; margin-top: 4px; line-height: 1.5">{{m.dev}}</div></sc-if>
+<div style="font-size: 12px; color: #B5AEBF; margin-top: 3px">{{m.why}}</div>
+</div>
+</div>
+</sc-if>
+</sc-for>
+<sc-if value="{{typing}}" hint-placeholder-val="{{false}}">
+<div style="align-self: flex-start; background: #26272E; border: 1px solid #34363F; border-radius: 16px 16px 16px 4px; padding: 12px 14px; display: flex; gap: 5px" aria-label="Aarohi is typing">
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #B5AEBF; animation: tdot 1.2s infinite"></span>
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #B5AEBF; animation: tdot 1.2s infinite .2s"></span>
+<span style="width: 7px; height: 7px; border-radius: 50%; background: #B5AEBF; animation: tdot 1.2s infinite .4s"></span>
+</div>
+</sc-if>
+</div>
+
+<div style="flex-shrink: 0; padding: 6px 10px 18px; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #30323B">
+<div style="display: flex; gap: 8px; overflow-x: auto; padding: 2px">
+<sc-if value="{{showPalmPill}}" hint-placeholder-val="{{true}}">
+<button type="button" onClick="{{openCam}}" style="flex-shrink: 0; min-height: 38px; padding: 4px 14px 4px 10px; border-radius: 19px; border: 1.5px solid #FF7D3A; background: rgba(255,125,58,0.12); color: #FFCBA8; font-family: 'Mukta', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 6px; animation: tpulse 2.4s ease-in-out infinite">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4a1.5 1.5 0 0 1 3 0v7M14 11V5.5a1.5 1.5 0 0 1 3 0V13M17 11.5a1.5 1.5 0 0 1 3 0V15a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L4.3 16a1.6 1.6 0 0 1 2.6-1.8L8 15.5"></path></svg>
+Haath ki rekhaye padhiye
+</button>
+</sc-if>
+<sc-for list="{{chips}}" as="c" hint-placeholder-count="3">
+<button type="button" onClick="{{c.send}}" style="flex-shrink: 0; min-height: 38px; padding: 4px 14px; border-radius: 19px; border: 1.5px solid #7D5CE8; background: transparent; color: #D7CCFF; font-family: 'Mukta', sans-serif; font-size: 15px; cursor: pointer; white-space: nowrap">{{c.label}}</button>
+</sc-for>
+</div>
+<div style="display: flex; align-items: center; gap: 6px">
+<button type="button" aria-label="Haath ki rekhaye padhiye: send a photo" onClick="{{openCam}}" style="width: 44px; height: 44px; border-radius: 50%; border: 0; background: #26272E; color: #FFB07F; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path></svg></button>
+<label for="msg" style="position: absolute; width: 1px; height: 1px; overflow: hidden">Type a message</label>
+<input id="msg" value="{{draft}}" onChange="{{onDraft}}" placeholder="Type your question…" style="flex-grow: 1; min-width: 0; height: 46px; border-radius: 23px; border: 1.5px solid #3B3D48; background: #26272E; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 16px; padding: 0 16px; box-sizing: border-box; outline-color: #7D5CE8">
+<sc-if value="{{hasDraft}}" hint-placeholder-val="{{false}}">
+<button type="button" aria-label="Send" onClick="{{sendDraft}}" style="width: 46px; height: 46px; border-radius: 50%; border: 0; background: #FF7D3A; color: #1C1D22; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</sc-if>
+<sc-if value="{{noDraft}}" hint-placeholder-val="{{true}}">
+<button type="button" aria-label="Ask by voice" style="width: 46px; height: 46px; border-radius: 50%; border: 0; background: #FF7D3A; color: #1C1D22; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM5 11a7 7 0 0 0 14 0M12 18v3"></path></svg></button>
+</sc-if>
+</div>
+</div>
+
+<sc-if value="{{camOpen}}" hint-placeholder-val="{{false}}">
+<div style="position: absolute; inset: 0; background: #0E0F12; display: flex; flex-direction: column; z-index: 5; animation: tsheet .3s ease-out">
+<div style="height: 56px; display: flex; align-items: center; padding: 0 8px; gap: 6px; flex-shrink: 0">
+<button type="button" aria-label="Close" onClick="{{closeCam}}" style="width: 44px; height: 44px; border: 0; background: transparent; color: #F1E2CC; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px">Palm reading</div>
+</div>
+<div style="padding: 0 22px; text-align: center">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 22px; line-height: 1.25">Send photos of both hands</div>
+<div style="font-size: 15px; color: #B5AEBF; margin-top: 4px; line-height: 1.4">Keep your palm open and flat, in good light. One hand also works.</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 16px 22px 0">
+<sc-for list="{{hands}}" as="h" hint-placeholder-count="2">
+<button type="button" onClick="{{h.select}}" style="height: 44px; border-radius: 12px; border: 1.5px solid {{h.border}}; background: {{h.bg}}; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px">
+<sc-if value="{{h.done}}" hint-placeholder-val="{{false}}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#5BD08A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></sc-if>
+{{h.label}}
+</button>
+</sc-for>
+</div>
+<div style="flex-grow: 1; margin: 14px 22px 0; border-radius: 22px; background: #1A1B20; border: 1px solid #2E3038; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{curDone}}" hint-placeholder-val="{{false}}">
+<img src="assets/palm_left.jpg" alt="{{curLabel}}" style="width: 100%; height: 100%; object-fit: cover; transform: {{curFlip}}">
+</sc-if>
+<sc-if value="{{curEmpty}}" hint-placeholder-val="{{true}}">
+<svg viewBox="0 0 200 260" style="width: 62%; height: auto; transform: {{curFlip}}" fill="none" stroke="#FFB07F" stroke-width="3" stroke-dasharray="9 7" stroke-linejoin="round" aria-hidden="true"><path d="M70 250V172c-24-14-38-32-46-56l-8-22c-4-12 3-18 11-18 7 0 12 6 15 14l10 26V40c0-8 6-13 12-13s12 5 12 13v70l2-90c0-8 6-12 12-12s12 4 12 12v88l4-82c0-8 6-12 12-12s12 4 12 12l-2 86 6-58c1-8 6-11 11-11 6 0 11 4 10 13l-6 96c-4 50-20 78-30 98z"></path></svg>
+<div style="position: absolute; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, rgba(255,125,58,0), #FF7D3A, rgba(255,125,58,0)); animation: tscan 2.2s ease-in-out infinite alternate"></div>
+<div style="position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 14px; color: #D9CFE0">Fit your palm inside the outline</div>
+</sc-if>
+</div>
+<div style="padding: 14px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<button type="button" onClick="{{capture}}" style="height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #4A4C58; background: transparent; color: #D9CFE0; font-family: 'Mukta', sans-serif; font-size: 15px; cursor: pointer">From gallery</button>
+<button type="button" aria-label="{{shutterLabel}}" onClick="{{capture}}" style="width: 68px; height: 68px; border-radius: 50%; border: 4px solid #F1E2CC; background: #FF7D3A; cursor: pointer; padding: 0"></button>
+<div style="width: 108px; text-align: right; font-size: 13px; color: #B5AEBF">{{countLabel}}</div>
+</div>
+<sc-if value="{{oneOnly}}" hint-placeholder-val="{{false}}">
+<div style="font-size: 13px; color: #B5AEBF; text-align: center">Add the other hand for a deeper reading, or send just this one.</div>
+</sc-if>
+<button type="button" onClick="{{sendPhotos}}" disabled="{{noPhotos}}" style="height: 52px; border-radius: 16px; border: 0; background: {{sendBg}}; color: #1C1D22; font-family: 'Mukta', sans-serif; font-size: 18px; font-weight: 700; cursor: pointer">{{sendLabel}}</button>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  script() {
+    return {
+      open: ['Namaste Priya ji, aapke teeno cards mere saamne hain. Shaadi ka sawaal hai, toh dhyaan se dekhti hoon.',
+        'Pehla card aapka hai, [[Three of Swords]], aur ye ulta aaya hai. Ye dil ki purani chot ka card hai… ulta hone ka matlab hai ki woh dard ab dheere-dheere kam ho raha hai.',
+        'Doosra card, saamne wala: [[The Hermit]]. Jo insaan aapki zindagi mein aa raha hai, woh shaant aur soch-samajhkar chalne wala lagta hai. Jaldbaazi nahi karega, par dikhawe wala bhi nahi.',
+        'Aur teesra, rishta kidhar: [[Two of Cups]] ✨ Ye do dilon ke sacche judaav ka card hai. Aapke cards ke hisaab se rishte ki baat 1 se 3 mahine mein aage badhne ke yog dikhte hain.',
+        'Ek baat poochhun… pichhle kuch samay mein koi rishta toota tha kya, jiski baat aaj bhi mann mein aati hai?'],
+      openChips: ['Haan, ek rishta toota tha', 'Shaadi ki baat kab badhegi?', 'Koi upay bataiye'],
+      replies: {
+        'Haan, ek rishta toota tha': { user: 'Haan, pichhle saal ek rishta toot gaya tha. Uske baad se mann nahi lagta', bubbles: [
+          'Samajh sakti hoon… aisi baat mann se itni jaldi nahi jaati.',
+          'Aapka [[Three of Swords]] yahi dikha raha tha. Acchi baat ye hai ki woh ulta aaya hai, yaani aap us dard se bahar nikal rahi hain, bhale hi andar thodi baat abhi bhi dabi hai.',
+          'Bas naye rishte ko purane wale ki nazar se mat tauliye. [[The Hermit]] wala insaan thoda samay lega, use woh samay dijiye.',
+          'Aajkal akelapan zyada mehsoos hota hai, ya gharwalon ki baaton ka dabaav zyada lagta hai?'],
+          chips: ['Akelapan lagta hai', 'Shaadi ki baat kab badhegi?', 'Koi upay bataiye'] },
+        'Akelapan lagta hai': { user: 'Haan, akelapan bahut lagta hai', bubbles: [
+          'Aapne khulkar kaha, ye accha kiya.',
+          '[[The Hermit]] akelepan ka card bhi hai, par iska sandesh saza nahi, thehraav hai. Ye waqt aapko khud ko samajhne ke liye mila hai, taaki agla rishta soch-samajhkar chunein.',
+          'Aur aage [[Two of Cups]] hai, yaani ye akelapan hamesha ka nahi.',
+          'Aapki koi saheli ya behen hai jisse aap dil ki baat kar paati hain?'],
+          chips: ['Koi upay bataiye', 'Shaadi ki baat kab badhegi?', 'Thank you'] },
+        'Shaadi ki baat kab badhegi?': { user: 'Shaadi ki baat kab tak aage badhegi?', bubbles: [
+          'Dekhiye, cards taareekh nahi batate, disha batate hain 🙂',
+          'Aapka future wala card [[Two of Cups]] hai, aur ye baat aage badhne ka card hai. Aapke cards ke hisaab se rishte ki baat 1 se 3 mahine mein aage badhne ke yog hain.',
+          '[[Two of Cups]] ka sambandh Kark mein Shukra se maana jaata hai, aur Shukra prem aur vivah ka kaarak hai. Yaani rishta mann se judne wala hoga, sirf kaagzi nahi.',
+          'Ghar mein abhi kisi rishte ki baat chal rahi hai, ya abhi dhoondh hi rahe hain?'],
+          chips: ['Koi upay bataiye', 'Akelapan lagta hai', 'Thank you'] },
+        'Koi upay bataiye': { user: 'Koi upay bataiye', bubbles: [
+          'Bilkul. Aapke liye ye upay hain, mann se kijiyega:',
+          { upay: 'Kisi bade ya anubhavi vyakti se salah aur aashirwad lijiye, aur roz 15 minute kuch naya seekhiye.', why: 'Guru (Jupiter): elders’ blessings, marriage (especially for girls)' },
+          { upay: 'Ghar ka ek kona saaf aur sundar rakhiye, aur kisi apne ke liye ek chhota khushi ka kaam kijiye.', why: 'Shukra (Venus): love, marriage · your Two of Cups is linked to Venus' },
+          'Pooja-paath wale upay bhi bataun?'],
+          chips: ['Pooja wale upay', 'Thank you'] },
+        'Pooja wale upay': { user: 'Pooja wale upay bataiye', bubbles: [
+          'Theek hai, ye upay poore mann se kijiye:',
+          { upay: "Roz 11 baar ye mantra boliye: 'Katyayani Mahamaye Mahayoginyadhishwari, Nandagopasutam Devi Patim Me Kuru Te Namah.'", why: 'Guru (Jupiter): marriage (especially for girls)', dev: 'कात्यायनि महामाये महायोगिन्यधीश्वरि। नन्दगोपसुतं देवि पतिं मे कुरु ते नमः॥' },
+          { upay: 'Guruvaar ko maathe par haldi ka tilak lagaiye aur kele ke ped mein jal chadhaiye.', why: 'Guru (Jupiter): wisdom, elders’ blessings, marriage' },
+          'Upay mann ko mazboot karte hain, baaki kadam aapko aur gharwalon ko uthaane hain. Ye Guruvaar se shuru karengi?'],
+          chips: ['Haan, shuru karungi', 'Thank you'] },
+        'Haan, aisa hua hai': { user: 'Haan, aisa hua hai', bubbles: [
+          'Aisa bahut logon ke saath hota hai, aap akeli nahi hain.',
+          'Dil ki sunna galat nahi hai, bas bada faisla lene se pehle kisi bharosemand se ek baar baat kar liya kijiye. [[The Hermit]] bhi yahi kehta hai: thoda rukkar sochiye.',
+          'Abhi ghar mein jo rishton ki baat chal rahi hai, usmein aap apni pasand khulkar bata paati hain?'],
+          chips: ['Koi upay bataiye', 'Thank you'] },
+        'Haan, shuru karungi': { user: 'Haan, shuru karungi', bubbles: [
+          'Bahut accha 🙂 Kal subah aapka naya card bhi aayega, use zaroor dekhiyega.',
+          'Aur jab ghar mein rishte ki baat aage badhe, mujhe bataiyega. Main aapke cards phir se dekhungi.'],
+          chips: [] },
+        'Thank you': { user: 'Thank you Aarohi', bubbles: ['Aapka bhi shukriya Priya ji. Khayal rakhiye, aur kal ka card dekhna mat bhooliye.'], chips: [] }
+      },
+      palm: function (two) {
+        return [two ? 'Dono haath bahut saaf aaye hain, thank you Priya ji 🙂' : 'Photo saaf aayi hai. Ek haath se bhi kaafi kuch dikh raha hai.',
+          'Aapki [[Heart Line]] (hriday rekha) lambi hai aur index finger ki taraf jaati hai. Hast-rekha mein ise aise insaan ki nishaani maana jaata hai jo rishton ko dil se aur poori imaandari se nibhata hai.',
+          'Aapki [[Head Line]] (mastishk rekha) halki-si neeche ki taraf jhuki hai, yaani aap bhaavuk bhi hain aur kalpanasheel bhi. Faisle lete waqt aap dil ki awaaz zyada sunti hain.',
+          'Ye aapke card se bhi mel khaata hai, [[Two of Cups]] bhi dil se judne ka card hai.',
+          'Kya kabhi aisa hua hai ki dil ki sunkar liya gaya faisla baad mein bhaari pada ho?'];
+      },
+      offTopic: ['Ye sawaal mere bas ka nahi hai Priya ji 🙂 Main sirf tarot cards aur haath ki rekhaon se aapki zindagi ke sawaalon par baat karti hoon.', 'Aapke cards abhi bhi mere saamne hain. Unke baare mein kuch aur poochna chahengi?']
+    };
+  }
+  componentDidMount() {
+    if (this._started) return;
+    this._started = true;
+    this.deliver(this.script().open, this.script().openChips, 600);
+  }
+  componentDidUpdate() { if (this._list) this._list.scrollTop = this._list.scrollHeight; }
+  componentWillUnmount() { (this._timers || []).forEach(function (t) { clearTimeout(t); }); }
+  deliver(bubbles, chips, firstDelay) {
+    var self = this, t = firstDelay || 900;
+    this._timers = this._timers || [];
+    this.setState({ typing: true, chips: [] });
+    bubbles.forEach(function (b, i) {
+      var len = typeof b === 'string' ? b.length : b.upay.length;
+      t += Math.min(2600, 700 + len * 18);
+      self._timers.push(setTimeout(function () {
+        var m = typeof b === 'string' ? { from: 'r', text: b } : { from: 'upay', text: b.upay, why: b.why, dev: b.dev || '' };
+        var msgs = (self.state && self.state.msgs || []).concat([m]);
+        self.setState({ msgs: msgs, typing: i < bubbles.length - 1, chips: i === bubbles.length - 1 ? chips : [] });
+      }, t));
+    });
+  }
+  say(key, text) {
+    var s = Object.assign({ msgs: [] }, this.state || {});
+    var sc = this.script();
+    this.setState({ msgs: s.msgs.concat([{ from: 'u', text: text }]), draft: '' });
+    var r = sc.replies[key];
+    if (r) this.deliver(r.bubbles, r.chips);
+    else this.deliver(sc.offTopic, ['Shaadi ki baat kab badhegi?', 'Koi upay bataiye']);
+  }
+  matchTyped(t) {
+    if (/उपाय|upay|upaay|remedy/i.test(t)) return /पूजा|puja|pooja/i.test(t) ? 'Pooja wale upay' : 'Koi upay bataiye';
+    if (/शादी|shaadi|shadi|रिश्ता|rishta|kab|कब/i.test(t)) return 'Shaadi ki baat kab badhegi?';
+    if (/अकेला|अकेली|अकेलापन|akela|akeli|lonely/i.test(t)) return 'Akelapan lagta hai';
+    if (/टूट|breakup|toot/i.test(t)) return 'Haan, ek rishta toota tha';
+    if (/धन्यवाद|शुक्रिया|thanks|thank|dhanyavad|shukriya/i.test(t)) return 'Thank you';
+    return null;
+  }
+  renderVals() {
+    var self = this;
+    var s = Object.assign({ msgs: [], chips: [], typing: false, draft: '', playing: -1, cam: false, hand: 'left', shots: {}, palmSent: false }, this.state || {});
+    var sc = this.script();
+    var msgs = s.msgs.map(function (m, i) {
+      var segs = (m.text || '').split(/\[\[|\]\]/).map(function (t, k) { return { t: t, card: k % 2 === 1, plain: k % 2 === 0 }; }).filter(function (g) { return g.t; });
+      return { mine: m.from === 'u', theirs: m.from === 'r', upay: m.from === 'upay', photos: m.from === 'pics', pics: m.pics || [],
+        text: m.text, why: m.why, dev: m.dev, hasDev: !!m.dev, segs: segs,
+        listenBg: s.playing === i ? 'rgba(125,92,232,0.35)' : '#26272E',
+        listen: function () { self.setState({ playing: s.playing === i ? -1 : i }); } };
+    });
+    var HAND = { left: { label: 'Left hand', flip: 'none' }, right: { label: 'Right hand', flip: 'scaleX(-1)' } };
+    var count = (s.shots.left ? 1 : 0) + (s.shots.right ? 1 : 0);
+    var on = { bg: 'rgba(255,125,58,0.14)', border: '#FF7D3A' }, off = { bg: 'transparent', border: '#3B3D48' };
+    return {
+      msgs: msgs, typing: s.typing,
+      status: s.typing ? 'typing…' : 'Online', statusColor: s.typing ? '#FFB07F' : '#B5AEBF',
+      mini: [{ id: 52, rev: true }, { id: 9, rev: false }, { id: 37, rev: false }],
+      chips: s.chips.map(function (c) { return { label: c, send: function () { self.say(c, sc.replies[c] ? sc.replies[c].user : c); } }; }),
+      showPalmPill: !s.palmSent,
+      draft: s.draft, hasDraft: !!s.draft.trim(), noDraft: !s.draft.trim(),
+      onDraft: function (e) { self.setState({ draft: e.target.value }); },
+      sendDraft: function () { var t = s.draft.trim(); if (t) self.say(self.matchTyped(t), t); },
+      setList: function (el) { self._list = el; },
+      camOpen: s.cam,
+      openCam: function () { self.setState({ cam: true, hand: s.shots.left ? 'right' : 'left' }); },
+      closeCam: function () { self.setState({ cam: false }); },
+      hands: ['left', 'right'].map(function (h) {
+        var c = s.hand === h ? on : off;
+        return { label: HAND[h].label, done: !!s.shots[h], bg: c.bg, border: c.border, select: function () { self.setState({ hand: h }); } };
+      }),
+      curLabel: HAND[s.hand].label, curFlip: HAND[s.hand].flip, curDone: !!s.shots[s.hand], curEmpty: !s.shots[s.hand],
+      shutterLabel: 'Take photo: ' + HAND[s.hand].label,
+      capture: function () {
+        var shots = Object.assign({}, s.shots); shots[s.hand] = true;
+        self.setState({ shots: shots, hand: s.hand === 'left' && !shots.right ? 'right' : s.hand });
+      },
+      countLabel: count + ' / 2 photos', oneOnly: count === 1, noPhotos: count === 0,
+      sendBg: count ? '#FF7D3A' : '#4A4C58',
+      sendLabel: count === 2 ? 'Send both photos' : count === 1 ? 'Send 1 photo' : 'Take a photo first',
+      sendPhotos: function () {
+        if (!count) return;
+        var pics = ['left', 'right'].filter(function (h) { return s.shots[h]; }).map(function (h) { return { label: HAND[h].label, flip: HAND[h].flip }; });
+        self.setState({ cam: false, palmSent: true, shots: {}, msgs: s.msgs.concat([{ from: 'pics', pics: pics }]) });
+        self.deliver(sc.palm(count === 2), ['Haan, aisa hua hai', 'Koi upay bataiye']);
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

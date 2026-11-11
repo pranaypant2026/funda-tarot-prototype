@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aarohi · Profile</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Mukta:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#1C1D22}
+a{color:#FFB07F}a:hover{color:#FFCBA8}
+</style>
+</helmet>
+<div style="width: 390px; height: 1300px; box-sizing: border-box; background: #1C1D22; color: #F1E2CC; font-family: 'Mukta', sans-serif; display: flex; flex-direction: column; overflow: hidden; position: relative">
+
+<div style="height: 56px; padding: 0 16px 0 4px; display: flex; align-items: center; gap: 4px; flex-shrink: 0">
+<a href="Readers.dc.html" aria-label="Back" style="width: 44px; height: 44px; color: #F1E2CC; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+</div>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 20px 22px; text-align: center">
+<div style="width: 148px; height: 148px; border-radius: 50%; padding: 3.5px; box-sizing: border-box; background: linear-gradient(140deg, #7D5CE8, #FF7D3A)">
+<img src="assets/readers/aarohi.jpg" alt="Aarohi" style="width: 100%; height: 100%; border-radius: 50%; border: 4px solid #1C1D22; box-sizing: border-box; object-fit: cover; display: block">
+</div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 30px; line-height: 1.1; margin-top: 6px">Aarohi</div>
+<div style="font-size: 15px; color: #B5AEBF; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5BD08A; display: inline-block"></span>Online · Tarot reader on Funda</div>
+<div style="display: flex; gap: 8px; margin-top: 4px">
+<div style="font-size: 14px; background: #30323B; border-radius: 10px; padding: 4px 12px">Hindi</div>
+<div style="font-size: 14px; background: #30323B; border-radius: 10px; padding: 4px 12px">Hinglish</div>
+</div>
+</div>
+
+<div style="padding: 0 20px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px">Talks about</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{topics}}" as="t" hint-placeholder-count="5">
+<div style="font-size: 15px; border: 1px solid #4A4C58; border-radius: 18px; padding: 5px 14px">{{t}}</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px">Her style</div>
+<div style="font-size: 16px; line-height: 1.55; color: #D9CFE0">Aarohi listens first, then reads your cards. Straight but kind, like an elder sister. Whether it is a delayed marriage, a breakup or trouble with in-laws, she reads your cards and your rashi and gives you a clear answer, with simple, trusted upay when you need them.</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px">People often ask</div>
+<sc-for list="{{asks}}" as="q" hint-placeholder-count="4">
+<a href="Chat.dc.html" style="min-height: 50px; border-radius: 14px; background: #26272E; border: 1px solid #3B3D48; color: #F1E2CC; font-size: 16px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; gap: 10px">{{q}}<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#B9A6FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 19px">How a reading works</div>
+<sc-for list="{{how}}" as="h" hint-placeholder-count="3">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<div style="width: 28px; height: 28px; border-radius: 50%; background: #30323B; color: #FFB07F; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; flex-shrink: 0">{{h.n}}</div>
+<div style="font-size: 16px; line-height: 1.45; color: #D9CFE0; padding-top: 2px">{{h.t}}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 20px 24px; background: #1C1D22; border-top: 1px solid #30323B">
+<a href="Chat.dc.html" style="height: 56px; border-radius: 16px; background: #FF7D3A; color: #1C1D22; font-size: 19px; font-weight: 700; display: flex; align-items: center; justify-content: center; text-decoration: none">Chat with Aarohi</a>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      topics: ['Love', 'Marriage delay', 'Breakups', 'Husband–wife fights', 'In-laws', 'Loneliness'],
+      asks: ['Meri shaadi kab hogi?', 'Kya woh mujhe sach mein chahte hain?', 'Purana rishta laut aayega?', 'Pati se jhagde kaise kam hon?'],
+      how: [
+        { n: 1, t: 'You pick your own cards from all 78.' },
+        { n: 2, t: 'Aarohi reads your cards, your rashi and what you tell her, together.' },
+        { n: 3, t: 'One clear answer linking past, present and future, plus upay if needed.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

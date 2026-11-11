@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>My tarot diary</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&amp;family=Mukta:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0;background:#1C1D22}
+a{color:#FFB07F}a:hover{color:#FFCBA8}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #1C1D22; color: #F1E2CC; font-family: 'Mukta', sans-serif; display: flex; flex-direction: column; overflow: hidden">
+
+<div style="height: 56px; padding: 0 16px 0 4px; display: flex; align-items: center; gap: 4px; flex-shrink: 0">
+<a href="Main.dc.html" aria-label="Back" style="width: 44px; height: 44px; color: #F1E2CC; display: flex; align-items: center; justify-content: center"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 21px">My tarot diary</div>
+</div>
+
+<div style="margin: 4px 16px 0; border-radius: 18px; background: #26272E; border: 1px solid #3B3D48; padding: 16px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0">
+<div style="display: flex; align-items: center; gap: 8px">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#FFB07F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5a6.5 6.5 0 0 0 6.5-6.5c0-4.5-4-7-5-11.5-2.5 2.5-3.5 5-3 7.5-1.2-.8-2-2-2.2-3.3C6.6 9.4 5.5 11.8 5.5 15a6.5 6.5 0 0 0 6.5 6.5z"></path></svg>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 20px">5 days in a row</div>
+</div>
+<div style="display: flex; gap: 6px">
+<sc-for list="{{week}}" as="w" hint-placeholder-count="7">
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<div style="width: 100%; height: 8px; border-radius: 4px; background: {{w.bg}}"></div>
+<div style="font-size: 12px; color: #B5AEBF">{{w.d}}</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size: 14px; color: #D9CFE0">2 more days to unlock your weekly reading</div>
+</div>
+
+<div style="flex-grow: 1; overflow-y: auto; padding: 16px 16px 20px; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="5">
+<div style="border-radius: 16px; background: #26272E; border: 1px solid #3B3D48; padding: 12px; display: flex; gap: 12px">
+<dc-import name="TarotCard" card-id="{{d.id}}" size="s" face="{{true}}" hint-size="56px,92px"></dc-import>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 13px; color: #FFB07F; font-weight: 600">{{d.date}}</div>
+<div style="font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; line-height: 1.2">{{d.name}}</div>
+<div style="font-size: 15px; color: #D9CFE0; line-height: 1.35">{{d.line}}</div>
+<sc-if value="{{d.ask}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; align-items: center; gap: 8px; margin-top: 4px; flex-wrap: wrap">
+<div style="font-size: 13px; color: #B5AEBF">Did this come true?</div>
+<button type="button" onClick="{{d.yes}}" aria-pressed="{{d.isYes}}" style="height: 34px; padding: 0 14px; border-radius: 17px; border: 1.5px solid {{d.yesBorder}}; background: {{d.yesBg}}; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 14px; cursor: pointer">Yes</button>
+<button type="button" onClick="{{d.no}}" aria-pressed="{{d.isNo}}" style="height: 34px; padding: 0 14px; border-radius: 17px; border: 1.5px solid {{d.noBorder}}; background: {{d.noBg}}; color: #F1E2CC; font-family: 'Mukta', sans-serif; font-size: 14px; cursor: pointer">No</button>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-for>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var s = Object.assign({ fb: { 70: 'yes' } }, this.state || {});
+    var DAYS = [
+      { id: 17, date: 'Today · Wed, 11 Nov', name: 'The Star', line: 'Hope is returning; better days are coming.', ask: false },
+      { id: 70, date: 'Tue, 10 Nov', name: 'Seven of Pentacles', line: 'Be patient; your hard work is ripening.', ask: true },
+      { id: 9, date: 'Mon, 9 Nov', name: 'The Hermit', line: 'Pause and reflect; the answer is within.', ask: true },
+      { id: 41, date: 'Sun, 8 Nov', name: 'Six of Cups', line: 'Old memories, or an old friend, may return.', ask: true },
+      { id: 3, date: 'Sat, 7 Nov', name: 'The Empress', line: 'A time of comfort, love and growth at home.', ask: true }
+    ];
+    var on = { bg: 'rgba(125,92,232,0.25)', border: '#7D5CE8' }, off = { bg: 'transparent', border: '#4A4C58' };
+    return {
+      week: ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map(function (d, i) { return { d: d, bg: i < 5 ? '#FF7D3A' : '#3B3D48' }; }),
+      days: DAYS.map(function (d) {
+        var v = s.fb[d.id];
+        var setFb = function (val) { var n = Object.assign({}, s.fb); n[d.id] = val; self.setState({ fb: n }); };
+        return Object.assign({}, d, {
+          isYes: v === 'yes', isNo: v === 'no',
+          yesBg: (v === 'yes' ? on : off).bg, yesBorder: (v === 'yes' ? on : off).border,
+          noBg: (v === 'no' ? on : off).bg, noBorder: (v === 'no' ? on : off).border,
+          yes: function () { setFb('yes'); }, no: function () { setFb('no'); }
+        });
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
